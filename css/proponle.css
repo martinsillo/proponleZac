@@ -69,3 +69,54 @@ body{
   }
 
 }
+
+.facebook_btn{
+    background-color: #ebeef4;
+    border-left: solid 2px #3d5a96;
+    width:100%;
+    padding: 5px 5px 5px 5px;
+    color: #333;
+}
+
+.twitter_btn{
+    background-color: #ecf7fc;
+    border-left: solid 2px #4bb1e1;
+    width:100%;
+    padding: 5px 5px 5px 5px;
+    color: #333;
+}
+
+.google_btn{
+    background-color: #ffe7e7;
+    border-left: solid 2px #e54250;
+    width:100%;
+    padding: 5px 5px 5px 5px;
+    color: #333;
+}
+
+
+.pie_pag {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    text-align: justify;
+}
+
+.pie_pag a,a:active {
+    color:#fff;
+}
+.pie_pag a:hover {
+    color:#fff;
+}
+.pie_pag a:visited {
+    color:#fff;
+}
+
+.titulo_pagina{
+    background-color: #f0f3f6;
+    border-bottom: solid 1px #dfe2e2;
+    padding: 5px 15px 5px 25px;
+    width: 100%;
+}

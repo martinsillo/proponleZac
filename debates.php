@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
-    <link rel="stylesheet" href="css/proponle.css">
+    <link rel="stylesheet" href="css/proponle.css?v=1.1">
     <link rel="stylesheet" href="css/style.css">
 
 
@@ -29,40 +29,43 @@
                 </div>
                 <div class="col-md-6" style="text-align:right; padding-right: 20%">
                     <br><br>
-                     <button type="button" class="btn btn-outline btn-default">Entrar</button>
-                   <a type="button" class="btn btn-outline btn-primary" href="registro.html">Registrarse</a>
+                   <a type="button" class="btn btn-outline btn-danger" href="logout.php">Salir</a>
                 </div>
             </div>
 <!-- Barra de Navegación -->
             <br>
             </div>
 <div class="topnav" id="myTopnav">
-  <a href="#" class="active">Inicio</a>
-  <a href="#">Debates</a>
+  <a href="main.php" >Inicio</a>
+  <a href="#" class="active">Debates</a>
   <a href="#">Propuestas</a>
   <a href="#">Sondeos/Votaciones</a>
   <a href="#">Documentos</a>
   <a href="#">Más Información</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
-    <div style="text-align: center; padding-top: 25px; padding-left: 10%; padding-right: 10%;">
-        <br>
-        <button type="button" class="btn btn-danger2">Haz tu Propuesta Ciudadana</button>
-        <br>
-        <h2>¿TIENES UNA IDEA PARA CAMBIAR ZACATECAS?</h2>
-        <h4>El Gobierno del Estado llevará a cabo tu propuesta si consigues que pase a votación ciudadana. Lorem Ipsum Dolor Est.</h4>
-        <br>
-        <button type="button" class="btn btn-outline btn-primary btn-lg" >Crea una Propuesta</button>
+    <div class="titulo_pagina">
+        <h3>Debates Ciudadanos</h3>
     </div>
-<hr>
-    <div style="padding-left: 10%; padding-right: 10%;">
+    <div style="padding-top: 15px; padding-left: 10%; padding-right: 10%; padding-bottom:1%;">
         <div class="row">
-            <div class="col-md-4">pic 1</div>
-            <div class="col-md-4">pic 2</div>
-            <div class="col-md-4">pic 3</div>
+            <div class="col-md-8">DEBATES info</div>
+            <div class="col-md-4" style="border-left:solid 1px #dfe2e2;">
+                <button type="button" class="btn btn-primary btn-outline">Empieza un debate</button><br>
+                <br>
+                <button type="button" class="btn btn-info btn-outline">Ayuda sobre debates</button>
+                <hr>
+                <strong>Tendencias</strong>
+                <p>algunas etiquetas</p>
+                <hr>
+                <strong>Destacados</strong>
+                <p>Algunos Tags</p>
+            </div>
         </div>
-    </div>
 
+
+
+    </div>
    <div class="pie_pag">
       <div class="container">
         <div class="row" style="padding: 9px 1px 5px 1px;">
