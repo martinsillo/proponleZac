@@ -1,3 +1,7 @@
+<?php
+//require_once('php/seguriddad.php');
+require_once('php/conexion.php');
+?>
 <!Doctype HTML>
 <html lang="es">
 <head>
@@ -13,8 +17,9 @@
     <link rel="stylesheet" href="css/bootstrap.css">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
-    <link rel="stylesheet" href="css/proponle.css?v=1.1">
+    <link rel="stylesheet" href="css/proponle.css?v=1.2.1">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
 
 
 </head>
@@ -49,7 +54,23 @@
     </div>
     <div style="padding-top: 15px; padding-left: 10%; padding-right: 10%; padding-bottom:1%;">
         <div class="row">
-            <div class="col-md-8">DEBATES info</div>
+            <div class="col-md-8">
+                <?php require_once('php/debatesLista.php'); ?>
+                <br>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default"><i class="fa fa-chevron-left"></i></button>
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default  active">2</button>
+                    <button class="btn btn-default">3</button>
+                    <button class="btn btn-default">4</button>
+                    <button class="btn btn-default">5</button>
+                    <button class="btn btn-default">6</button>
+                    <button class="btn btn-default">7</button>
+                    <button class="btn btn-default">8</button>
+                    <button type="button" class="btn btn-default"><i class="fa fa-chevron-right"></i></button>
+                </div>
+
+            </div>
             <div class="col-md-4" style="border-left:solid 1px #dfe2e2;">
                 <button type="button" class="btn btn-primary btn-outline">Empieza un debate</button><br>
                 <br>
@@ -108,5 +129,6 @@ Zacatecas, Zac.<br>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/proponle.js?v=1.0.0"></script>
+
     </body>
 </html>
