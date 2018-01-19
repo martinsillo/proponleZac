@@ -56,5 +56,5 @@ print(number_format($res1,2,'.',''));
 ?>%<br><br>
 <strong><?php print($res[6] + $res[7]); ?>&nbsp; Votos</strong>
 </div></div>
-</div>
+</div><br>
 <?php } ?>
