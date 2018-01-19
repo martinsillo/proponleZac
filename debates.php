@@ -1,5 +1,5 @@
 <?php
-//require_once('php/seguriddad.php');
+require_once('php/seguridad.php');
 require_once('php/conexion.php');
 ?>
 <!Doctype HTML>
@@ -72,7 +72,7 @@ require_once('php/conexion.php');
 
             </div>
             <div class="col-md-4" style="border-left:solid 1px #dfe2e2;">
-                <button type="button" class="btn btn-primary btn-outline">Empieza un debate</button><br>
+                <button type="button" class="btn btn-primary btn-outline" onclick="nuevo_debate();">Empieza un debate</button><br>
                 <br>
                 <button type="button" class="btn btn-info btn-outline">Ayuda sobre debates</button>
                 <hr>
@@ -126,9 +126,34 @@ Zacatecas, Zac.<br>
       </div>
     </div>
 
+
+    <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+
+</div>
+
+
+
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/proponle.js?v=1.0.0"></script>
+    <script src="js/proponle.js?v=1.1.0"></script>
+    <script>
 
+        function nuevo_debate(){
+            $.ajax({
+                url: "views/nuevoDebate.html",
+                context: document.body
+                }).done(function(msg) {
+                document.getElementById("myModal").innerHTML = msg;
+                modal();
+            });
+        }
+
+
+        function modal(){
+            $("#myModal").modal();
+        }
+
+    </script>
     </body>
 </html>
