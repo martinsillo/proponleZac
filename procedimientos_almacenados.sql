@@ -19,3 +19,11 @@ SELECT
 
 END $$
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE insertarDebate(IN t VARCHAR(64) , IN u INT, IN f DATETIME, IN c TEXT )
+BEGIN
+    INSERT INTO debates(titulo_debate,id_usuario_auth,fecha_post,contenido) values (t,u,f,c);
+    SELECT id_debate FROM debates WHERE titulo_debate = t AND id_usuario_auth = u and fecha_post = f;
+END $$
+DELIMITER ;
