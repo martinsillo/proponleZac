@@ -1,5 +1,9 @@
-GRANT SELECT ON proponleZac.*  TO 'proponleZacConsulta'@'localhost';
-GRANT EXECUTE ON PROCEDURE proponleZac.debatesList TO 'proponleZacConsulta'@'localhost';
+CREATE DATABASE proponleZac;
+CREATE USER 'proponleZacAdm'@'localhost' IDENTIFIED BY '>GD2R3,(<xj8m:<a';
+GRANT ALL PRIVILEGES ON proponleZac.* TO 'proponleZacAdm'@'localhost';
+CREATE USER 'proponleZacUsr'@'localhost' IDENTIFIED BY 'uxU2j*6gXVTT;_#7';
+CREATE USER 'proponleZacConsulta'@'localhost' IDENTIFIED BY '!<x8KS@CKKbx=gWF';
+
 
 
 -- Usuarios y Perfiles -----------------------

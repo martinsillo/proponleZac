@@ -39,6 +39,19 @@ END $$
 DELIMITER ;
 
 
+DELIMITER $$
+CREATE PROCEDURE insertarEtiquetas(in e varchar(32), in d int )
+BEGIN
+	INSERT IGNORE INTO etiquetas(etiqueta) VALUES (e);
+    SET @idEtiqueta =(select id_etiqueta FROM etiquetas WHERE etiqueta = e);
+    INSERT INTO etiquetaDebate(id_etiqueta,idDebate) VALUES (@idEtiqueta,d);
+END $$
+DELIMITER ;
+
+
+
 GRANT SELECT ON proponleZac.*  TO 'proponleZacConsulta'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.debatesList TO 'proponleZacConsulta'@'localhost';
-GRANT INSERT ON proponleZac.
+GRANT SELECT,INSERT,UPDATE,DELETE ON proponleZac.* TO 'proponleZacUsr'@'localhost';
+GRANT EXECUTE ON PROCEDURE proponleZac.insertarEtiquetas TO 'proponleZacUsr'@'localhost';
+GRANT EXECUTE ON PROCEDURE proponleZac.insertarDebate TO 'proponleZacUsr'@'localhost';
