@@ -1,8 +1,6 @@
-CREATE DATABASE `proponleZac`;
-USE `proponleZac`;
-CREATE USER 'proponleZacConsulta'@'localhost' IDENTIFIED BY '!<x8KS@CKKbx=gWF';
 GRANT SELECT ON proponleZac.*  TO 'proponleZacConsulta'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.debatesList TO 'proponleZacConsulta'@'localhost';
+
 
 -- Usuarios y Perfiles -----------------------
 CREATE TABLE `usuarios` (

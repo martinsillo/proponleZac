@@ -1,4 +1,4 @@
-USE 'proponleZac';
+USE proponleZac;
 DELIMITER $$
 CREATE PROCEDURE debatesList (IN b INT, IN e INT)
 BEGIN
@@ -27,3 +27,18 @@ BEGIN
     SELECT id_debate FROM debates WHERE titulo_debate = t AND id_usuario_auth = u and fecha_post = f;
 END $$
 DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE tagsDebate (in i INT)
+BEGIN
+	SELECT e.etiqueta FROM etiquetas e
+    INNER JOIN etiquetadebate d on (d.id_etiqueta = e.id_etiqueta)
+    WHERE d.idDebate = i;
+END $$
+DELIMITER ;
+
+
+GRANT SELECT ON proponleZac.*  TO 'proponleZacConsulta'@'localhost';
+GRANT EXECUTE ON PROCEDURE proponleZac.debatesList TO 'proponleZacConsulta'@'localhost';
+GRANT INSERT ON proponleZac.

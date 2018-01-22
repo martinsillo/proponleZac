@@ -4,8 +4,9 @@ function tags($i){
     $conexion_tags = new conexion();
     $conn = $conexion_tags->conectar(3);
     $queryTag = 'call tagsDebate('.$i.')';
-    $ExQueryTags = $conn->query($queryTag);
+    $ExQueryTags = $conn->query($queryTag) or die ($conn->error);
     $tags_info = '';
+
     while($res = $ExQueryTags->fetch_array()){
         $tags_info .= "<a href='#' class='btn btn-primary2'>".$res[0]."</a>&nbsp;";
     }

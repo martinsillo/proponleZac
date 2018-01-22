@@ -41,7 +41,7 @@ require_once('php/conexion.php');
             <br>
             </div>
 <div class="topnav" id="myTopnav">
-  <a href="main.php" >Inicio</a>
+  <a href="index.html" >Inicio</a>
   <a href="#" class="active">Debates</a>
   <a href="#">Propuestas</a>
   <a href="#">Sondeos/Votaciones</a>
