@@ -3,6 +3,36 @@ date_default_timezone_set('America/Mexico_City');
 require_once('seguridad.php');
 require_once('conexion.php');
 $conexion = new conexion();
+class debates{
+    function listar(){
+        return false;
+
+    }
+    function crear(){
+        return false;
+    }
+    function editar(){
+        return false;
+    }
+    function eliminar(){
+        return false;
+    }
+    function comentar(){
+        return false;
+    }
+    function etiquetar(){
+        return false;
+    }
+}
+
+
+
+
+
+
+
+
+
 function addDebate($conn){
     $conexion = $conn->conectar(2);
     $fecha = date('Y-m-d H:i:s');

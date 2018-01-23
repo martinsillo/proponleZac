@@ -3,6 +3,7 @@ class conexion {
     private $conn;
     private $host = 'localhost';
     private $dataB = 'proponleZac';
+
     function conectar($u){
         //$u = nivel de usuario
         switch($u){
@@ -22,9 +23,4 @@ class conexion {
         $this->conn = new mysqli($this->host,$user,$key,$this->dataB);
         return $this->conn;
     }
-    function cerrar($u){
-        $u->close();
-    }
 }
-
-$conexion = new conexion();
