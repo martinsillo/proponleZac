@@ -1,3 +1,6 @@
+<?php
+require_once("php/seguridad.php");
+?>
 <!Doctype HTML>
 <html lang="es">
 <head>
@@ -39,10 +42,10 @@
 <div class="topnav" id="myTopnav">
   <a href="#" class="active">Inicio</a>
   <a href="debates.php">Debates</a>
-  <a href="#">Propuestas</a>
-  <a href="#">Sondeos/Votaciones</a>
-  <a href="#">Documentos</a>
-  <a href="#">Más Información</a>
+  <a href="prpuestas.php">Propuestas</a>
+  <a href="sondeos.php">Sondeos/Votaciones</a>
+  <a href="documentos.php">Documentos</a>
+  <a href="informacion.php">Más Información</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
     <div style="text-align: center; padding-top: 25px; padding-left: 10%; padding-right: 10%;">
