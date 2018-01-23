@@ -3,7 +3,7 @@ CREATE USER 'proponleZacAdm'@'localhost' IDENTIFIED BY '>GD2R3,(<xj8m:<a';
 GRANT ALL PRIVILEGES ON proponleZac.* TO 'proponleZacAdm'@'localhost';
 CREATE USER 'proponleZacUsr'@'localhost' IDENTIFIED BY 'uxU2j*6gXVTT;_#7';
 CREATE USER 'proponleZacConsulta'@'localhost' IDENTIFIED BY '!<x8KS@CKKbx=gWF';
-
+USE proponleZac;
 
 
 -- Usuarios y Perfiles -----------------------
