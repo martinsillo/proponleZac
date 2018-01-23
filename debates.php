@@ -1,6 +1,7 @@
 <?php
 require_once('php/seguridad.php');
 require_once('php/conexion.php');
+require_once('php/debates.php');
 ?>
 <!Doctype HTML>
 <html lang="es">
@@ -15,13 +16,10 @@ require_once('php/conexion.php');
     <!-- Hojas de Estilo -->
     <link rel="shortcut icon" type="image/x-icon" href="img/icon.ico" />
     <link rel="stylesheet" href="css/bootstrap.css">
-
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
     <link rel="stylesheet" href="css/proponle.css?v=1.2.1">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/font-awesome.css">
-
-
 </head>
     <body>
         <div class="barra_top">
@@ -37,16 +35,15 @@ require_once('php/conexion.php');
                    <a type="button" class="btn btn-outline btn-danger" href="logout.php">Salir</a>
                 </div>
             </div>
-<!-- Barra de Navegación -->
             <br>
             </div>
 <div class="topnav" id="myTopnav">
-  <a href="index.html" >Inicio</a>
+  <a href="index.php" >Inicio</a>
   <a href="#" class="active">Debates</a>
-  <a href="#">Propuestas</a>
-  <a href="#">Sondeos/Votaciones</a>
-  <a href="#">Documentos</a>
-  <a href="#">Más Información</a>
+  <a href="propuestas.php">Propuestas</a>
+  <a href="sondeos.php">Sondeos/Votaciones</a>
+  <a href="documentos.php">Documentos</a>
+  <a href="informacion.php">Más Información</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
     <div class="titulo_pagina">
@@ -55,7 +52,11 @@ require_once('php/conexion.php');
     <div style="padding-top: 15px; padding-left: 10%; padding-right: 10%; padding-bottom:1%;">
         <div class="row">
             <div class="col-md-8">
-                <?php require_once('php/debatesLista.php'); ?>
+                <?php
+                    $debates = new debates();
+                    if(isset($_GET['pagina'])){$rango =$_GET['pagina']; } else {$pagina=1;}
+                    echo $debates->listar($pagina);
+                ?>
                 <br>
                 <div class="btn-group">
                     <button type="button" class="btn btn-default"><i class="fa fa-chevron-left"></i></button>
