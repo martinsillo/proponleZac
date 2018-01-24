@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Mexico_City');
 require_once('php/seguridad.php');
 require_once('php/conexion.php');
 require_once('php/debates.php');

@@ -40,16 +40,24 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE insertarEtiquetas(in e varchar(32), in d int )
 BEGIN
-	INSERT IGNORE INTO etiquetas(etiqueta) VALUES (e);
-    SET @idEtiqueta =(select id_etiqueta FROM etiquetas WHERE etiqueta = e);
+
+  IF EXISTS (select * from etiquetas WHERE etiqueta = e) THEN
+     SET @idEtiqueta =(select id_etiqueta FROM etiquetas WHERE etiqueta = e);
+     INSERT INTO etiquetaDebate(id_etiqueta,idDebate) VALUES (@idEtiqueta,d);
+ELSE
+    insert into  etiquetas(etiqueta) VALUES (e);
+     SET @idEtiqueta =(select id_etiqueta FROM etiquetas WHERE etiqueta = e);
     INSERT INTO etiquetaDebate(id_etiqueta,idDebate) VALUES (@idEtiqueta,d);
+END IF;
+
 END $$
 DELIMITER ;
 
 
+delimiter $$
+create procedure registrosDebates()
+begin
+	select count(*) from debates where validado = 1;
+end $$
+delimiter ;
 
-GRANT SELECT ON proponleZac.*  TO 'proponleZacConsulta'@'localhost';
-GRANT EXECUTE ON PROCEDURE proponleZac.debatesList TO 'proponleZacConsulta'@'localhost';
-GRANT SELECT,INSERT,UPDATE,DELETE ON proponleZac.* TO 'proponleZacUsr'@'localhost';
-GRANT EXECUTE ON PROCEDURE proponleZac.insertarEtiquetas TO 'proponleZacUsr'@'localhost';
-GRANT EXECUTE ON PROCEDURE proponleZac.insertarDebate TO 'proponleZacUsr'@'localhost';
