@@ -1,13 +1,33 @@
 <?php
 date_default_timezone_set('America/Mexico_City');
 require_once('seguridad.php');
-require_once('conexion.php');
-$conexion = new conexion();
+
 class debates{
-    function listar(){
-        return false;
+    function listar($p){
+        require_once('conexion.php');
+        $c = new conexion();
+        $conexion = $c->conectar(3);
+        $fin = $p*10;
+        $inicio = $fin -10;
+        $Consulta = 'call debatesList('.$inicio.','.$fin.')';
+        $exQuery = $conexion->query($Consulta) or die ($conexion->error);
+
+        // utilizar un while;
+        $resultado = $exQuery->fetch_array('MYSQLI_NUM');
+
+
+        $exQuery->free();
+        $conexion->close();
+        unset($conexion);
+        unset($c);
+        return $resultado;
+
+
 
     }
+
+
+
     function crear(){
         return false;
     }
@@ -53,10 +73,3 @@ function addDebate($conn){
 
      return "successful";
 }
-switch($_POST['accion']){
-    case 'agregar':
-    $resultado = addDebate($conexion);
-    break;
-}
-
-echo $resultado;

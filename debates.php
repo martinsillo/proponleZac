@@ -55,7 +55,10 @@ require_once('php/debates.php');
                 <?php
                     $debates = new debates();
                     if(isset($_GET['pagina'])){$rango =$_GET['pagina']; } else {$pagina=1;}
-                    echo $debates->listar($pagina);
+                    $info = $debates->listar($pagina);
+                    print_r($info);
+
+
                 ?>
                 <br>
                 <div class="btn-group">

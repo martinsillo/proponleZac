@@ -3,7 +3,6 @@ DELIMITER $$
 CREATE PROCEDURE debatesList (IN b INT, IN e INT)
 BEGIN
 SELECT
-
 	d.id_debate,
 	d.titulo_debate,
     (select count(*) FROM comentariosDebate WHERE id_debate = d.id_debate) as comentarios,
@@ -16,7 +15,6 @@ SELECT
 	inner join usuarios u on (d.id_usuario_auth = u.idUsuario)
     where d.validado = 1
     LIMIT b,e;
-
 END $$
 DELIMITER ;
 
