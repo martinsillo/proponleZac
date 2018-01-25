@@ -1,4 +1,5 @@
 CREATE DATABASE proponleZac;
+ALTER SCHEMA `proponleZac`  DEFAULT CHARACTER SET utf8 ;
 CREATE USER 'proponleZacAdm'@'localhost' IDENTIFIED BY '>GD2R3,(<xj8m:<a';
 GRANT ALL PRIVILEGES ON proponleZac.* TO 'proponleZacAdm'@'localhost';
 CREATE USER 'proponleZacUsr'@'localhost' IDENTIFIED BY 'uxU2j*6gXVTT;_#7';

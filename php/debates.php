@@ -47,16 +47,16 @@ class debates{
         }
         return $contenido;
     }
-
-
-function crear(){
+    function crear(){
         date_default_timezone_set('America/Mexico_City');
         session_start();
         require_once('conexion.php');
         $c = new conexion();
         $conexion = $c->conectar(2);
         $fecha = date('Y-m-d H:i:s');
-        $Consulta = 'CALL insertarDebate("'.$_POST['titulo'].'",'.$_SESSION['user_id'].',"'.$fecha.'","'.$_POST['texto'].'")';
+        $titulo = str_replace("'","\'",$_POST['titulo']);
+        $texto = str_replace("'","\'",$_POST['texto']);
+        $Consulta = "CALL insertarDebate('".$titulo."',".$_SESSION['user_id'].",'".$fecha."','".$texto."')";
         $ExConsulta = $conexion->query($Consulta) or die($conexion->error);
         $res = $ExConsulta->fetch_array();
         $conexion->close();
