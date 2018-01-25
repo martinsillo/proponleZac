@@ -97,7 +97,7 @@ class debates{
         $conn->close();
         unset($conn);
         unset($c);
-        return 1;
+        return $tags_info;
     }
 }
 
