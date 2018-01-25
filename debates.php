@@ -51,18 +51,26 @@ require_once('php/debates.php');
         <h3>Debates Ciudadanos</h3>
     </div>
     <div style="padding-top: 15px; padding-left: 10%; padding-right: 10%; padding-bottom:1%;">
+
         <div class="row">
             <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-8"><h4><a href="#"> Debates Actuales</a> | <a href="#"> Debates Cerrados</a></h4> </div>
+        <div class="col-md-4">Buscar</div>
+
+        </div>
+                <hr>
                 <?php
                     $debates = new debates();
                     if(isset($_GET['pagina'])){$rango =$_GET['pagina']; } else {$pagina=1;}
                     $info = $debates->listar($pagina);
-                    print_r($info);
-
-
+                    print($info);
                 ?>
                 <br>
                 <div class="btn-group">
+                    <?php
+
+                    ?>
                     <button type="button" class="btn btn-default"><i class="fa fa-chevron-left"></i></button>
                     <button class="btn btn-default">1</button>
                     <button class="btn btn-default  active">2</button>
