@@ -4,3 +4,4 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON proponleZac.* TO 'proponleZacUsr'@'localhos
 GRANT EXECUTE ON PROCEDURE proponleZac.insertarEtiquetas TO 'proponleZacUsr'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.insertarDebate TO 'proponleZacUsr'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.registrosDebates TO 'proponleZacConsulta'@'localhost';
+FLUSH PRIVILEGES;
