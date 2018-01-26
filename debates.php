@@ -56,7 +56,11 @@ require_once('php/debates.php');
         <div class="row">
             <div class="col-md-8">
                         <div class="row">
-                            <div class="col-md-8"><h4><a href="#"> Debates Actuales</a> | <a href="#"> Debates Cerrados</a></h4> </div>
+                            <div class="col-md-8"><h4><a href="<?php
+
+                               echo "?cerrados=0"; ?>"> Debates Actuales</a> | <a href="<?php
+
+                               echo "?cerrados=1"; ?>"> Debates Cerrados</a></h4> </div>
         <div class="col-md-4">Buscar</div>
 
         </div>
@@ -64,7 +68,15 @@ require_once('php/debates.php');
                 <?php
                     $debates = new debates();
                     if(isset($_GET['pagina'])){$rango =$_GET['pagina']; } else {$pagina=1;}
-                    $info = $debates->listar($pagina);
+
+                    if(isset($_GET['cerrados'])){ $cerrado = $_GET['cerrados']; } else { $cerrado = 0; }
+
+                    if(isset($_GET['texto'])){$texto =$_GET['texto']; } else {$texto='null';}
+                    if(isset($_GET['fecha1'])){$fecha1 =$_GET['fecha1']; } else {$fecha1 = 'null';}
+                    if(isset($_GET['fecha2'])){$fecha2 =$_GET['fecha2']; } else {$fecha2 = 'null';}
+
+
+                    $info = $debates->listar($pagina,$cerrado,$texto,$fecha1,$fecha2);
                     print($info);
                 ?>
                 <br>
@@ -90,8 +102,8 @@ require_once('php/debates.php');
                 <br>
                 <button type="button" class="btn btn-info btn-outline">Ayuda sobre debates</button>
                 <hr>
-                <strong>Tendencias</strong>
-                <p>algunas etiquetas</p>
+                <strong>Tendencias</strong><br>
+                <?php echo $debates->etiqeutasMasVisitadas(); ?>
                 <hr>
                 <strong>Destacados</strong>
                 <p>Algunos Tags</p>

@@ -4,7 +4,7 @@
 
 class debates{
 
-    function listar($p){
+    function listar($p,$a,$t,$f1,$f2){
         $c = new conexion();
         $conexion = $c->conectar(3);
         $ConsultaRegistros = "call registrosDebates()";
@@ -22,7 +22,11 @@ class debates{
             $conexion = $c->conectar(3);
             $fin = $p * 10;
             $inicio = $fin -10;
-            $ConsultaDebates = 'call debatesList('.$inicio.','.$fin.')';
+            $array_chars = array("%20","%21");
+            $array_reference = array(" ","!");
+            if($t != 'null'){$t = '"'.str_replace($array_chars,$array_reference,$t).'"'; }
+            $ConsultaDebates = 'call debatesList('.$inicio.','.$fin.','.$a.','.$t.','.$f1.','.$f2.')';
+
             $exQuery = $conexion->query($ConsultaDebates) or die ($data->error);
             $conexion->close();
 
@@ -84,7 +88,6 @@ class debates{
     function comentar(){
         return false;
     }
-
     function etiquetar($i){
         $c = new conexion();
         $conn = $c->conectar(3);
@@ -99,8 +102,24 @@ class debates{
         unset($c);
         return $tags_info;
     }
-}
 
+
+    function etiqeutasMasVisitadas(){
+        $c = new conexion();
+        $conn = $c->conectar(3);
+        $queryTag = 'call etiquetasVisitadas()';
+        $ExQueryTags = $conn->query($queryTag) or die ($conn->error);
+        $tags_info = '';
+        while($res = $ExQueryTags->fetch_array()){
+            $tags_info .= "<a href='#' class='btn btn-primary2'>".$res[1]."</a>&nbsp;";
+        }
+        $conn->close();
+        unset($conn);
+        unset($c);
+        return $tags_info;
+
+    }
+}
 
 if(isset($_POST['accion'])){
     $d = new debates();
