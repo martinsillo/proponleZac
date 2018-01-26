@@ -1,6 +1,3 @@
-<?php
-require_once("php/seguridad.php");
-?>
 <!Doctype HTML>
 <html lang="es">
 <head>

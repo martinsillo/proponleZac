@@ -32,8 +32,9 @@ require_once('php/debates.php');
                     <img src="img/logo2.png"  class="img-responsive" style="margin: 0 auto;">
                 </div>
                 <div class="col-md-6" style="text-align:right; padding-right: 20%">
-                    <br><br>
-                   <a type="button" class="btn btn-outline btn-danger" href="logout.php">Salir</a>
+                  <br><br>
+                     <button type="button" class="btn btn-outline btn-default">Entrar</button>
+                   <a type="button" class="btn btn-outline btn-primary" href="registro.html">Registrarse</a>
                 </div>
             </div>
             <br>
