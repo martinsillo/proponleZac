@@ -48,6 +48,7 @@ CREATE TABLE `debates`
     `votos_favor` BIGINT NOT NULL DEFAULT 0,
     `votos_contra` BIGINT NOT NULL DEFAULT 0,
     `validado` TINYINT NOT NULL DEFAULT 0,
+    `cerrado` tinyint(4) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id_debate`)
 );
 
