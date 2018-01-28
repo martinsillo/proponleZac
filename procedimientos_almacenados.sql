@@ -95,7 +95,7 @@ DELIMITER $$
 CREATE PROCEDURE tagsDebate (in i INT)
 BEGIN
 	SELECT e.etiqueta FROM etiquetas e
-    INNER JOIN etiquetadebate d on (d.id_etiqueta = e.id_etiqueta)
+    INNER JOIN etiquetaDebate d on (d.id_etiqueta = e.id_etiqueta)
     WHERE d.idDebate = i;
 END $$
 DELIMITER ;

@@ -41,12 +41,13 @@ class debates{
                 $r1 = number_format($r1,2,'.','');
                 $r2 = ($res[7]/$total_votos)*100;
                 $r2 = number_format($r2,2,'.','');
+                $nombre = explode(" ",$res[3]);
             $contenido .= '<div class="box_debate">
                             <div class="row">
                             <div class="col-md-9">
                             <h3 style="color:#333;"> <a href="#"><strong>'.$res[1].'</strong></a> </h3>
                             <p>
-                            <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;'.$res[2].'&nbsp;Comentario(s) &nbsp;•&nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; '.$fecha.' &nbsp;•&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>'. $res[3].'<p>'. $res[5].' </p>'.$etiquetas.'</div><div class="col-md-3" style="border-left: solid 1px #dfe2e2;"><a class="btn btn-default"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> &nbsp;'.$r1.'%<br><br><a class="btn btn-default"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> &nbsp; '.$r2.'%<br><br><strong>'.$total_votos_reales.'&nbsp;Votos</strong></div></div></div><br>';
+                            <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;'.$res[2].'&nbsp;Comentario(s) &nbsp;•&nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; '.$fecha.' &nbsp;•&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;'. $nombre[0]." ".$nombre[1].'<p>'. $res[5].' </p>'.$etiquetas.'</div><div class="col-md-3" style="border-left: solid 1px #dfe2e2;"><a class="btn btn-default"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> &nbsp;'.$r1.'%<br><br><a class="btn btn-default"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> &nbsp; '.$r2.'%<br><br><strong>'.$total_votos_reales.'&nbsp;Votos</strong></div></div></div><br>';
             }
         }
         return $contenido;
@@ -102,8 +103,6 @@ class debates{
         unset($c);
         return $tags_info;
     }
-
-
     function etiqeutasMasVisitadas(){
         $c = new conexion();
         $conn = $c->conectar(3);

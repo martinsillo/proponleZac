@@ -116,9 +116,10 @@ $(function() {
 
   	$(document).on('click', '#login', function(e) {
   		e.preventDefault();
-
   		facebookLogin();
   	})
+
+
 
   	$(document).on('click', '#logout', function(e) {
   		e.preventDefault();
@@ -128,6 +129,8 @@ $(function() {
   		else
   			return false;
   	})
+
+
 
 
 });

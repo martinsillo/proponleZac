@@ -48,7 +48,7 @@ require_once('php/debates.php');
                              echo '<a type="button" class="btn btn-outline btn-primary" href="registro.php">Registrarse</a>';
                         }
                        }else{
-                            echo '<a type="button" class="btn btn-outline btn-default" href="login.php">Entrar</a>
+                            echo '<a id="entrar" type="button" class="btn btn-outline btn-default" href="login.php">Entrar</a>
                      <a type="button" class="btn btn-outline btn-primary" href="registro.php">Registrarse</a>';
 
                        }
@@ -123,8 +123,6 @@ require_once('php/debates.php');
                 <strong>Tendencias</strong><br>
                 <?php echo $debates->etiqeutasMasVisitadas(); ?>
                 <hr>
-                <strong>Destacados</strong>
-                <p>Algunos Tags</p>
             </div>
         </div>
 
@@ -199,5 +197,6 @@ Zacatecas, Zac.<br>
         }
 
     </script>
+
     </body>
 </html>
