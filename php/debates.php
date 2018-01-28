@@ -4,7 +4,7 @@
 
 class debates{
 
-    function listar($p,$a,$t,$f1,$f2){
+    function listar($p,$a,$t,$f1,$f2,$s){
         $c = new conexion();
         $conexion = $c->conectar(3);
         $ConsultaRegistros = "call registrosDebates()";
@@ -34,20 +34,16 @@ class debates{
 
             $fecha =  substr($res[4],0,10);
             $etiquetas = $this->etiquetar($res[0]);
-            $total_votos = $res[6] + $res[7];
-            $total_votos_reales = $res[6] + $res[7];
-            if($total_votos == 0){ $total_votos = 1;}
-                $r1 = ($res[6]/$total_votos)*100;
-                $r1 = number_format($r1,2,'.','');
-                $r2 = ($res[7]/$total_votos)*100;
-                $r2 = number_format($r2,2,'.','');
-                $nombre = explode(" ",$res[3]);
+            $nombre = explode(" ",$res[3]);
+            $btns_votos = $this->botonesVotos( $res[6], $res[7],$s,$res[0]);
             $contenido .= '<div class="box_debate">
                             <div class="row">
                             <div class="col-md-9">
                             <h3 style="color:#333;"> <a href="#"><strong>'.$res[1].'</strong></a> </h3>
                             <p>
-                            <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;'.$res[2].'&nbsp;Comentario(s) &nbsp;•&nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; '.$fecha.' &nbsp;•&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;'. $nombre[0]." ".$nombre[1].'<p>'. $res[5].' </p>'.$etiquetas.'</div><div class="col-md-3" style="border-left: solid 1px #dfe2e2;"><a class="btn btn-default"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> &nbsp;'.$r1.'%<br><br><a class="btn btn-default"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> &nbsp; '.$r2.'%<br><br><strong>'.$total_votos_reales.'&nbsp;Votos</strong></div></div></div><br>';
+                            <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;'.$res[2].'&nbsp;Comentario(s) &nbsp;•&nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; '.$fecha.' &nbsp;•&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;'. $nombre[0]." ".$nombre[1].'<p>'. $res[5].' </p>'.$etiquetas.'</div><div class="col-md-3" style="border-left: solid 1px #dfe2e2;">'.$btns_votos;
+
+                           ;
             }
         }
         return $contenido;
@@ -118,6 +114,83 @@ class debates{
         return $tags_info;
 
     }
+    function contarDebates(){
+        $c = new conexion();
+        $conexion = $c->conectar(3);
+        $ConsultaRegistros = "call registrosDebates()";
+        $ExRegistros = $conexion->query($ConsultaRegistros) or die('error');
+        $registros = $ExRegistros->fetch_Array();
+        $ExRegistros->free_result();
+        $conexion->close();
+        unset($ExRegistros);
+        unset($conexion);
+        if($registros[0] == 0){
+            $r = 1;
+            return $r;
+        }else{
+            return $registros[0];
+        }
+    }
+    function botonesVotos($v1,$v2,$s,$d){
+        $total_votos = $v1 + $v2;
+            $total_votos_reales = $v1 + $v2;
+            if($total_votos == 0){ $total_votos = 1;}
+                $r1 = ($v1/$total_votos)*100;
+                $r1 = number_format($r1,2,'.','');
+                $r2 = ($v2/$total_votos)*100;
+                $r2 = number_format($r2,2,'.','');
+                if($s){
+
+                     $c = new conexion();
+                     $conexion = $c->conectar(3);
+                     $ExQuery1 = $conexion->query('call buscarVoto('.$_SESSION['user_id'].','.$d.')') or die ($conexion->error);
+                     $ResQuery = $ExQuery1->fetch_array();
+                     $ExQuery1->free_result();
+                     $conexion->close();
+                     if($ResQuery[0] == 0){
+                           $resultado = ' <a class="btn btn-success btn-outline" href="javascript:votar('.$d.',1)"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> &nbsp;'.$r1.'%<br><br><a class="btn btn-danger btn-outline" href="javascript:votar('.$d.',2)"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> &nbsp; '.$r2.'%<br><br><strong>'.$total_votos_reales.'&nbsp;Votos</strong></div></div></div><br>';
+                     }else{
+                         if($ResQuery[0] == 1){$resultado = ' <a class="btn btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> &nbsp;'.$r1.'%<br><br><a class="btn btn-default"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> &nbsp; '.$r2.'%<br><br><strong>'.$total_votos_reales.'&nbsp;Votos</strong></div></div></div><br>';}
+
+                         if($ResQuery[0] == 2){$resultado = ' <a class="btn btn-default "><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> &nbsp;'.$r1.'%<br><br><a class="btn btn-danger"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> &nbsp; '.$r2.'%<br><br><strong>'.$total_votos_reales.'&nbsp;Votos</strong></div></div></div><br>';}
+                     }
+
+
+
+
+
+
+
+
+                }else{
+                                     $resultado = ' <a class="btn btn-default"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> &nbsp;'.$r1.'%<br><br><a class="btn btn-default"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> &nbsp; '.$r2.'%<br><br><strong>'.$total_votos_reales.'&nbsp;Votos</strong></div></div></div><br>';
+
+
+                }
+
+
+
+        return $resultado;
+
+
+    }
+    function votarDebate($d){
+        session_start();
+        $session_active = false;
+        if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
+        if($_SESSION['active'] == true AND
+            $_SESSION['active_key'] = md5(sha1('ajdhakdjhakjshdkwdkahqwrñ43p9tw{uwaERT#$%VWAWEFWAwE#!$C"QX}'))){
+            $session_active = true;
+        }
+        }
+        if($session_active == false){ die('error en sesion');}
+        require_once('conexion.php');
+        $c = new conexion();
+        $conexion = $c->conectar(2);
+        $conexion->query("CALL registrarVoto(".$_SESSION['user_id'].",".$d['debate'].",".$d['voto'].")") or die ($conexion->error);
+        $conexion->close();
+        return "success";
+    }
 }
 
 if(isset($_POST['accion'])){
@@ -125,6 +198,9 @@ if(isset($_POST['accion'])){
  switch($_POST['accion']) {
      case "agregar":
         echo $d->crear($_POST);
+    break;
+    case "votar":
+        echo $d->votarDebate($_POST);
     break;
  }
 }

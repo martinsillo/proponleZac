@@ -151,3 +151,11 @@ ALTER TABLE `proponleZac`.`etiquetaDebate`
     REFERENCES `proponleZac`.`debates` (`id_debate`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
+
+CREATE TABLE `proponleZac`.`votosDebate` (
+  `idvotosDebate` BIGINT NOT NULL AUTO_INCREMENT,
+  `idDebate` INT NOT NULL,
+  `idUsuario` INT NOT NULL,
+  `voto` TINYINT NOT NULL,
+  PRIMARY KEY (`idvotosDebate`));
+

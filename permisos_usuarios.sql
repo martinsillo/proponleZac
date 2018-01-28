@@ -9,4 +9,6 @@ GRANT EXECUTE ON PROCEDURE proponleZac.registroUsuario TO 'proponleZacUsr'@'loca
 GRANT EXECUTE ON PROCEDURE proponleZac.usuarios TO 'proponleZacConsulta'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.infoUsuario TO 'proponleZacConsulta'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.tasgDebate TO 'proponleZacConsulta'@'localhost';
+GRANT EXECUTE ON PROCEDURE proponleZac.registrarVoto TO 'proponleZacUsr'@'localhost';
+GRANT EXECUTE ON PROCEDURE proponleZac.buscarVoto TO 'proponleZacConsulta'@'localhost';
 FLUSH PRIVILEGES;

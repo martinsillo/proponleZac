@@ -166,3 +166,22 @@ where facebook_id = u;
 end $$
 delimiter ;
 
+delimiter $$
+create procedure registrarVoto(in u int, in d int, in v int)
+begin
+if exists(select * from votosDebate where idDebate = d and idUsuario = u)THEN
+	SELECT("existe registro");
+ else
+	insert into votosDebate(idDebate,idUsuario,voto) values (d,u,v);
+    update debates set votos_favor = (select count(*) from votosDebate WHERE idDebate = d and idUsuario = u and voto = 1), votos_contra = (select count(*) from votosDebate WHERE idDebate = d and idUsuario = u and voto = 2) where id_debate = d;
+END IF;
+end $$
+delimiter ;
+
+delimiter $$
+create procedure buscarVoto(in u int, in d int)
+begin
+    set @votado = (select count(*) from votosDebate where idDebate = d and idUsuario = u);
+    select if(@votado = 1,(select voto from votosDebate where idDebate = d and idUsuario = u),'0');
+end $$
+delimiter ;

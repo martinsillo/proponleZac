@@ -3,6 +3,14 @@ date_default_timezone_set('America/Mexico_City');
 require_once('php/seguridad.php');
 require_once('php/conexion.php');
 require_once('php/debates.php');
+$session_active = false;
+if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
+    if($_SESSION['active'] == true AND
+        $_SESSION['active_key'] = md5(sha1('ajdhakdjhakjshdkwdkahqwrñ43p9tw{uwaERT#$%VWAWEFWAwE#!$C"QX}'))){
+        $session_active = true;
+    }
+}
+
 ?>
 <!Doctype HTML>
 <html lang="es">
@@ -94,29 +102,37 @@ require_once('php/debates.php');
                     if(isset($_GET['fecha2'])){$fecha2 =$_GET['fecha2']; } else {$fecha2 = 'null';}
 
 
-                    $info = $debates->listar($pagina,$cerrado,$texto,$fecha1,$fecha2);
+                    $info = $debates->listar($pagina,$cerrado,$texto,$fecha1,$fecha2,$session_active);
                     print($info);
                 ?>
                 <br>
-                <div class="btn-group">
-                    <?php
+                  <?php
+                       $registrosDeb = $debates->contarDebates();
 
+                        if($registrosDeb < 11 ){
+                            $loop = 1;
+                        }else{
+                            $div = intdiv($registrosDeb,10);
+                            $mod = $registrosDeb % 10;
+                            if($mod != 0){ $mod = 1; }else{$mod = 0;}
+                            $loop = $div + $mod;
+                        }
+                     ?>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" href="#1"><i class="fa fa-chevron-left"></i></button>
+                    <?php
+                      for($x = 0; $x<$loop; $x++){
+                         echo '<button class="btn btn-default">'.($x+1).'</button>';
+                          //  <button class="btn btn-default  active">2</button>
+                      }
                     ?>
-                    <button type="button" class="btn btn-default"><i class="fa fa-chevron-left"></i></button>
-                    <button class="btn btn-default">1</button>
-                    <button class="btn btn-default  active">2</button>
-                    <button class="btn btn-default">3</button>
-                    <button class="btn btn-default">4</button>
-                    <button class="btn btn-default">5</button>
-                    <button class="btn btn-default">6</button>
-                    <button class="btn btn-default">7</button>
-                    <button class="btn btn-default">8</button>
-                    <button type="button" class="btn btn-default"><i class="fa fa-chevron-right"></i></button>
+                    <button type="button" class="btn btn-default" href="#<?php echo $loop;?>"><i class="fa fa-chevron-right"></i></button>
                 </div>
 
             </div>
             <div class="col-md-4" style="border-left:solid 1px #dfe2e2;">
-                <button type="button" class="btn btn-primary btn-outline" onclick="nuevo_debate();">Empieza un debate</button><br>
+
+               <?php if($session_active) {?> <button type="button" class="btn btn-primary btn-outline" onclick="nuevo_debate();">Empieza un debate</button><br><?php } ?>
                 <br>
                 <button type="button" class="btn btn-info btn-outline">Ayuda sobre debates</button>
                 <hr>
@@ -179,6 +195,7 @@ Zacatecas, Zac.<br>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/proponle.js?v=1.1.0"></script>
+    <?php if($session_active){ ?>
     <script>
 
         function nuevo_debate(){
@@ -196,7 +213,20 @@ Zacatecas, Zac.<br>
             $("#myModal").modal();
         }
 
-    </script>
+        function votar(d,v){
+               $.ajax({
+                method: "POST",
+                url: "php/debates.php",
+                data: { accion: 'votar', debate: d, voto: v  }
+                }).done(function(msg) {
+                   console.log(msg);
+                    if(msg === 'success'){
+                        location.reload();
+                    }
+            });
+        }
 
+    </script>
+    <?php } ?>
     </body>
 </html>
