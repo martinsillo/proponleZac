@@ -5,4 +5,7 @@ GRANT EXECUTE ON PROCEDURE proponleZac.insertarEtiquetas TO 'proponleZacUsr'@'lo
 GRANT EXECUTE ON PROCEDURE proponleZac.insertarDebate TO 'proponleZacUsr'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.registrosDebates TO 'proponleZacConsulta'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.etiquetasVisitadas TO 'proponleZacConsulta'@'localhost';
+GRANT EXECUTE ON PROCEDURE proponleZac.registroUsuario TO 'proponleZacUsr'@'localhost';
+GRANT EXECUTE ON PROCEDURE proponleZac.usuarios TO 'proponleZacConsulta'@'localhost';
+GRANT EXECUTE ON PROCEDURE proponleZac.infoUsuario TO 'proponleZacConsulta'@'localhost';
 FLUSH PRIVILEGES;

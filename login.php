@@ -1,3 +1,13 @@
+<?php
+    include('php/seguridad.php');
+
+if(
+       $_SESSION['active'] == true AND
+       $_SESSION['active_key'] == md5(sha1('ajdhakdjhakjshdkwdkahqwrñ43p9tw{uwaERT#$%VWAWEFWAwE#!$C"QX}'))){
+        header("Location:index.php");
+    }
+
+?>
 <!Doctype HTML>
 <html lang="es">
 <head>
@@ -26,59 +36,30 @@
         </div>
 
         <div class="col-md-8" style="padding:2% 10% 5% 10%">
-        <h2>Registrarse</h2>
-            <p>Puedes regístrarte con:</p>
+        <h2>Ingresar</h2>
+            <p>Puedes ingresar con:</p>
             <br>
             <div class="row">
-                <div class="col-md-3">
-                   <a><div class="facebook_btn"><span style="color:#3d5a96; font-size: 22px;"><i class="fa fa-facebook-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Facebook</div></a>
-                </div>
-                <div class="col-md-3">
-                <a><div class="twitter_btn"><span style="color:#4bb1e1; font-size: 22px;"><i class="fa fa-twitter-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Twitter</div></a>
-                </div>
-                <div class="col-md-3">
-                <a><div class="google_btn"><span style="color:#e54250; font-size: 22px;"><i class="fa fa-google-plus-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Google +</div></a>
+                <div class="col-md-9">
+                   <a id="login"><div class="facebook_btn"><span style="color:#3d5a96; font-size: 22px;"><i class="fa fa-facebook-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Facebook</div></a>
                 </div>
             </div>
             <br><hr>
-           <strong>O puedes registrarte como Organización o Colectivo:</strong>
+           <strong>Ingresar como Organización o Colectivo:</strong>
             <br><br>
             <div id="reg_colectivo">
             <form class="form-horizontal" onsubmit="return valida_form();">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label"><strong>Nombre de la Organización</strong></label>
-                    <div class="col-sm-9"><input type="text" class="form-control"></div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label"><strong>Nombre del Responsable</strong></label>
-                    <div class="col-sm-9"><input type="text" class="form-control" placeholder="Nombre y apellidos de la persona responsable de la organización"></div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+
+                    <div class="form-group">
                     <label class="col-sm-3 control-label"><strong>Correo Electrónico</strong></label>
                     <div class="col-sm-9"><input type="text" class="form-control"></div>
                 </div>
-                <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                    <label class="col-sm-3 control-label"><strong>Teléfono</strong></label>
-                    <div class="col-sm-9"><input type="text" class="form-control"></div>
-                </div>
-                <div class="hr-line-dashed"></div>
+
                             <div class="form-group">
                     <label class="col-sm-3 control-label"><strong>Contraseña</strong></label>
                     <div class="col-sm-9"><input type="text" class="form-control"></div>
                 </div>
-                <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                    <label class="col-sm-3 control-label"><strong>Repetir Contraseña</strong></label>
-                    <div class="col-sm-9"><input type="text" class="form-control"></div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="row" style="padding: 1px 1px 1px 1px;">
-                    <div class="col-md-3"><input type="checkbox">&nbsp;Acepto las condiciones de uso </div>
-                    <div class="col-md-4"><button type="submit" class="btn btn-outline btn-success btn-lg">&nbsp;Registrarme&nbsp;</button> </div>
-                </div>
+
             </form>
             </div>
         </div>
@@ -124,5 +105,18 @@ Zacatecas, Zac.<br>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/proponle.js?v=1.0.1"></script>
+
+
+<script>
+
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
     </body>
 </html>

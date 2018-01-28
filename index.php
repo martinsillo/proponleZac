@@ -1,3 +1,6 @@
+<?php
+ include('php/seguridad.php');
+?>
 <!Doctype HTML>
 <html lang="es">
 <head>
@@ -11,7 +14,6 @@
     <!-- Hojas de Estilo -->
     <link rel="shortcut icon" type="image/x-icon" href="img/icon.ico" />
     <link rel="stylesheet" href="css/bootstrap.css">
-
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
     <link rel="stylesheet" href="css/proponle.css">
     <link rel="stylesheet" href="css/style.css">
@@ -28,9 +30,29 @@
                     <img src="img/logo2.png"  class="img-responsive" style="margin: 0 auto;">
                 </div>
                 <div class="col-md-6" style="text-align:right; padding-right: 20%">
-                    <br><br>
-                     <button type="button" class="btn btn-outline btn-default">Entrar</button>
-                   <a type="button" class="btn btn-outline btn-primary" href="registro.html">Registrarse</a>
+                     <?php
+                       if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
+                           if($_SESSION['active'] == true AND
+    $_SESSION['active_key'] = md5(sha1('ajdhakdjhakjshdkwdkahqwrñ43p9tw{uwaERT#$%VWAWEFWAwE#!$C"QX}'))) {
+                               ?>
+                         <div class="row" style="padding: 1px 1px 1px 1px;">
+                             <div class="col-md-8"><img id="img_usr" src="http://graph.facebook.com/<?php echo $_SESSION['facebook_id'] ?>/picture?type=large" class="img-circle" width="50"> &nbsp; </div>
+                             <div class="col-md-4"><?php echo $_SESSION['full_name'] ?><br><a type="button"  class="btn btn-outline btn-danger btn-xs" href="javascript:logout();">Cerrar Sesi&oacute;n</a></div>
+                         </div>
+                    <?php
+
+                       }else{
+                            echo '<a type="button" class="btn btn-outline btn-default" href="login.php">Entrar</a>';
+                             echo '<a type="button" class="btn btn-outline btn-primary" href="registro.php">Registrarse</a>';
+                        }
+                       }else{
+                            echo '<a type="button" class="btn btn-outline btn-default" href="login.php">Entrar</a>
+                     <a type="button" class="btn btn-outline btn-primary" href="registro.php">Registrarse</a>';
+
+                       }
+                          ?>
+
+
                 </div>
             </div>
 <!-- Barra de Navegación -->
@@ -62,6 +84,9 @@
             <div class="col-md-4">pic 3</div>
         </div>
     </div>
+        <pre>
+        <?php print_r($_SESSION); ?>
+        </pre>
 
    <div class="pie_pag">
       <div class="container">
@@ -77,7 +102,6 @@
             </div>
             <div class="col-md-3">
                 <h4><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;Contacto</h4>
-
 Coordinación Estatal de Planeación<br>
 Circuito Cerro del Gato s/n<br>
 Colonia Ciudad Gobierno<br>

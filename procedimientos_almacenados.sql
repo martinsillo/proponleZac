@@ -139,3 +139,30 @@ begin
 end $$
 delimiter ;
 
+delimiter $$
+CREATE PROCEDURE registroUsuario(in u varchar(128), in p varchar(32), in n varchar(128), in r int)
+begin
+    insert into usuarios (facebook_id,password,nombre,perfil) values (u,p,n,r);
+end $$
+delimiter ;
+
+delimiter $$
+create procedure usuarios(in u varchar(128))
+begin
+select count(*) from usuarios where facebook_id = u;
+end $$
+delimiter ;
+
+delimiter $$
+create procedure infoUsuario(in u varchar(128))
+begin
+select
+idUsuario,
+facebook_id,
+nombre,
+perfil
+from usuarios
+where facebook_id = u;
+end $$
+delimiter ;
+
