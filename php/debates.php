@@ -39,7 +39,7 @@ class debates{
             $contenido .= '<div class="box_debate">
                             <div class="row">
                             <div class="col-md-9">
-                            <h3 style="color:#333;"> <a href="#"><strong>'.$res[1].'</strong></a> </h3>
+                            <h3 style="color:#333;"> <a href="debates_info.php?debateId='.$res[0].'"><strong>'.$res[1].'</strong></a> </h3>
                             <p>
                             <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;'.$res[2].'&nbsp;Comentario(s) &nbsp;•&nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; '.$fecha.' &nbsp;•&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;'. $nombre[0]." ".$nombre[1].'<p>'. $res[5].' </p>'.$etiquetas.'</div><div class="col-md-3" style="border-left: solid 1px #dfe2e2;">'.$btns_votos;
 
