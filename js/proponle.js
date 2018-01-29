@@ -22,7 +22,7 @@ function guardarDebate() {
             etiquetas: $('#etiquetas_debate').val()
         }
     }).done(function (msg) {
-        console.log(msg);
+        alert('Su propuesta de debate ha sido enviada para su validacion, muchas gracias.');
         $('#myModal').modal('hide');
     });
     return false;
