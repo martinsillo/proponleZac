@@ -1,33 +1,6 @@
-/*global
-alert, confirm, console, prompt, $, FB, statusChangeCallback
-*/
-function myFunction() {
-    'use strict';
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
-function guardarDebate() {
-    'use strict';
-    $.ajax({
-        method: "POST",
-        url: "php/debates.php",
-        data: {
-            accion: 'agregar',
-            titulo: $('#titulo_debate').val(),
-            texto: $('#cuerpo_debate').val(),
-            etiquetas: $('#etiquetas_debate').val()
-        }
-    }).done(function (msg) {
-        alert('Su propuesta de debate ha sido enviada para su validacion, muchas gracias.');
-        $('#myModal').modal('hide');
-    });
-    return false;
-}
-function loginProponle(datos){
+<?php echo "//function login\n"; ?>
+<?php if(!$session_active){
+    echo 'function loginProponle(datos){
 
    $.ajax({
         method: "POST",
@@ -38,17 +11,32 @@ function loginProponle(datos){
         location.reload();
     });
 
+}';
+
 }
-/*
+?>
+
+function cerrarSession(){
+   console.log("cerro sesion");
+   $.ajax({
+        method: "POST",
+        url: "php/logout.php",
+    })
+        .done(function() {
+        return true;
+    });
+}
+
+
 $(function() {
+
 	var app_id = '2092021814159167';
-	var scopes = 'email, user_friends';
-	//var btn_login = ' <a id="login"><div class="facebook_btn"><span style="color:#3d5a96; font-size: 22px;"><i class="fa fa-facebook-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Facebook</div></a>';
-	//var div_session = "<div id='facebook-session'>"+
-					  "<strong></strong>"+
-					  "<img>"+
-					  "<a href='#' id='logout' class='btn btn-danger'>Cerrar sesión</a>"+
-					  "</div>";
+	var scopes = 'email';
+	var btn_login = ' <a id="login"><div class="facebook_btn"><span style="color:#3d5a96; font-size: 22px;"><i class="fa fa-facebook-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Iniciar Sesión con Facebook </div></a>';
+	var div_session = "<div id='facebook-session' class='row' style='padding: 1px 1px 1px 1px;'>"+
+					 "<div class='col-md-8'><img id='img_usr' src='http://graph.facebook.com/<?php echo $_SESSION['facebook_id'] ?>/picture?type=large' class='img-circle' width='50'> &nbsp; </div>"+
+                             "<div class='col-md-4'><?php echo $_SESSION['full_name'] ?><br><a type='button'  class='btn btn-outline btn-danger btn-xs' href='#' id='logout'>Cerrar Sesi&oacute;n</a></div>"+
+                         "</div>";
 
 	window.fbAsyncInit = function() {
 
@@ -86,8 +74,10 @@ $(function() {
   	var getFacebookData =  function() {
   		FB.api('/me', function(response) {
 				console.log('DATOS USUARIO', response);
-                loginProponle(response);
-
+	  		$('#login').after(div_session);
+	  		$('#login').remove();
+	  		$('#facebook-session strong').text("Bienvenido: "+response.name);
+	  		$('#facebook-session img').attr('src','http://graph.facebook.com/'+response.id+'/picture?type=large');
 	  	});
   	}
 
@@ -95,6 +85,10 @@ $(function() {
   		checkLoginState(function(data) {
   			if (data.status !== 'connected') {
   				FB.login(function(response) {
+                    console.log("login called");
+                   <?php if(!$session_active) { ?>
+                   loginProponle(response);
+                    <? } ?>
   					if (response.status === 'connected')
   						getFacebookData();
   				}, {scope: scopes});
@@ -106,20 +100,23 @@ $(function() {
   		checkLoginState(function(data) {
   			if (data.status === 'connected') {
 				FB.logout(function(response) {
-					//$('#facebook-session').before(btn_login);
-					//$('#facebook-session').remove();
+                    console.log("ha salido");
+                    cerrarSession();
+					$('#facebook-session').before(btn_login);
+					$('#facebook-session').remove();
+                    location.reload();
 				})
 			}
   		})
 
   	}
 
+
+
   	$(document).on('click', '#login', function(e) {
   		e.preventDefault();
   		facebookLogin();
   	})
-
-
 
   	$(document).on('click', '#logout', function(e) {
   		e.preventDefault();
@@ -130,19 +127,4 @@ $(function() {
   			return false;
   	})
 
-
-
-
-});
-
-function logout(){
-     $.ajax({
-        method: "POST",
-        url: "php/logout.php",
-    })
-        .done(function() {
-        location.reload();
-    });
-
-}
-*/
+})

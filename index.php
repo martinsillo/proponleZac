@@ -1,5 +1,12 @@
 <?php
  include('php/seguridad.php');
+ $session_active = false;
+if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
+    if($_SESSION['active'] == true AND
+        $_SESSION['active_key'] = md5(sha1('ajdhakdjhakjshdkwdkahqwrñ43p9tw{uwaERT#$%VWAWEFWAwE#!$C"QX}'))){
+        $session_active = true;
+    }
+}
 ?>
 <!Doctype HTML>
 <html lang="es">
@@ -17,42 +24,20 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
     <link rel="stylesheet" href="css/proponle.css">
     <link rel="stylesheet" href="css/style.css">
-
-
+     <link rel="stylesheet" href="css/font-awesome.css">
 </head>
     <body>
         <div class="barra_top">
             Transparencia &nbsp;|&nbsp; Datos Abiertos &nbsp;|&nbsp; Foros Locales &nbsp;|&nbsp; <i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;&nbsp;<i class="fa fa-twitter-square" aria-hidden="true"></i>&nbsp;
         </div>
-        <div class="contenido" style="padding-left: 10%; padding-right: 10%;">
+        <div class="contenido" style="padding-left: 5%; padding-right: 5%;">
             <div class="row" style="padding: 1px 1px 1px 1px;">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <img src="img/logo2.png"  class="img-responsive" style="margin: 0 auto;">
                 </div>
-                <div class="col-md-6" style="text-align:right; padding-right: 20%">
-                     <?php
-                       if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
-                           if($_SESSION['active'] == true AND
-    $_SESSION['active_key'] = md5(sha1('ajdhakdjhakjshdkwdkahqwrñ43p9tw{uwaERT#$%VWAWEFWAwE#!$C"QX}'))) {
-                               ?>
-                         <div class="row" style="padding: 1px 1px 1px 1px;">
-                             <div class="col-md-8"><img id="img_usr" src="http://graph.facebook.com/<?php echo $_SESSION['facebook_id'] ?>/picture?type=large" class="img-circle" width="50"> &nbsp; </div>
-                             <div class="col-md-4"><?php echo $_SESSION['full_name'] ?><br><a type="button"  class="btn btn-outline btn-danger btn-xs" href="javascript:logout();">Cerrar Sesi&oacute;n</a></div>
-                         </div>
-                    <?php
-
-                       }else{
-                            echo '<a type="button" class="btn btn-outline btn-default" href="login.php">Entrar</a>';
-                             echo '<a type="button" class="btn btn-outline btn-primary" href="registro.php">Registrarse</a>';
-                        }
-                       }else{
-                            echo '<a type="button" class="btn btn-outline btn-default" href="login.php">Entrar</a>
-                     <a type="button" class="btn btn-outline btn-primary" href="registro.php">Registrarse</a>';
-
-                       }
-                          ?>
-
-
+                <div class="col-md-4" style="text-align:right; padding-right: 20%">
+                  <a id="login"><div class="facebook_btn"><span style="color:#3d5a96; font-size: 22px;"><i class="fa fa-facebook-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Iniciar Sesión con Facebook </div></a>
+<!-- loginform -->
                 </div>
             </div>
 <!-- Barra de Navegación -->
@@ -77,16 +62,9 @@
         <button type="button" class="btn btn-outline btn-primary btn-lg" >Crea una Propuesta</button>
     </div>
 <hr>
-    <div style="padding-left: 10%; padding-right: 10%;">
-        <div class="row">
-            <div class="col-md-4">pic 1</div>
-            <div class="col-md-4">pic 2</div>
-            <div class="col-md-4">pic 3</div>
-        </div>
-    </div>
-        <pre>
-        <?php print_r($_SESSION); ?>
-        </pre>
+<br>
+        <br><br>
+     <?php if($session_active){echo "sesion activa"; }else{ echo "Sesion inactiva 0 ";} ?>
 
    <div class="pie_pag">
       <div class="container">
@@ -128,6 +106,18 @@ Zacatecas, Zac.<br>
 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/proponle.js?v=1.0.0"></script>
+    <script src="js/proponle.js?v=1.0.1"></script>
+    <script src="js/login.js.php" defer></script>
+      <script>
+	// Load the SDK asynchronously
+	(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "https://connect.facebook.net/en_US/sdk.js";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+	 </script>
+
     </body>
 </html>
