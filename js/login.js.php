@@ -1,4 +1,4 @@
-<?php echo "//function login\n"; ?>
+
 <?php if(!$session_active){
     echo 'function loginProponle(datos){
 
@@ -14,7 +14,9 @@
 }';
 
 }
+
 ?>
+
 
 function cerrarSession(){
    console.log("cerro sesion");
@@ -55,8 +57,6 @@ $(function() {
   	};
 
   	var statusChangeCallback = function(response, callback) {
-  		console.log(response);
-
     	if (response.status === 'connected') {
       		getFacebookData();
     	} else {
@@ -66,14 +66,12 @@ $(function() {
 
   	var checkLoginState = function(callback) {
     	FB.getLoginStatus(function(response) {
-				console.log('DATOS USUARIO', response);
       		callback(response);
     	});
   	}
 
   	var getFacebookData =  function() {
   		FB.api('/me', function(response) {
-				console.log('DATOS USUARIO', response);
 	  		$('#login').after(div_session);
 	  		$('#login').remove();
 	  		$('#facebook-session strong').text("Bienvenido: "+response.name);
@@ -85,7 +83,6 @@ $(function() {
   		checkLoginState(function(data) {
   			if (data.status !== 'connected') {
   				FB.login(function(response) {
-                    console.log("login called");
                    <?php if(!$session_active) { ?>
                    loginProponle(response);
                     <? } ?>
@@ -116,15 +113,12 @@ $(function() {
   	$(document).on('click', '#login', function(e) {
   		e.preventDefault();
   		facebookLogin();
-  	})
+  	});
 
   	$(document).on('click', '#logout', function(e) {
   		e.preventDefault();
+  		facebookLogout();
 
-  		if (confirm("¿Está seguro?"))
-  			facebookLogout();
-  		else
-  			return false;
-  	})
+  	});
 
 })
