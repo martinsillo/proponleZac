@@ -1,7 +1,7 @@
 <?php
 class conexion {
     private $conn;
-    private $host = '10.221.12.5';
+    private $host = 'localhost';
     private $dataB = 'proponleZac';
 
     function conectar($u){
@@ -16,7 +16,7 @@ class conexion {
                 $key = 'uxU2j*6gXVTT;_#7';
             break;
             case 3:
-                $user = 'proponleZacCon';
+                $user = 'proponleZacConsulta';
                 $key = '!<x8KS@CKKbx=gWF';
             break;
         }
