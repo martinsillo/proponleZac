@@ -3,7 +3,7 @@ ALTER SCHEMA `proponleZac`  DEFAULT CHARACTER SET utf8 ;
 CREATE USER 'proponleZacAdm'@'localhost' IDENTIFIED BY '>GD2R3,(<xj8m:<a';
 GRANT ALL PRIVILEGES ON proponleZac.* TO 'proponleZacAdm'@'localhost';
 CREATE USER 'proponleZacUsr'@'localhost' IDENTIFIED BY 'uxU2j*6gXVTT;_#7';
-CREATE USER 'proponleZacCon'@'localhost' IDENTIFIED BY '!<x8KS@CKKbx=gWF';
+CREATE USER 'proponleZacConsulta'@'localhost' IDENTIFIED BY '!<x8KS@CKKbx=gWF';
 USE proponleZac;
 
 
@@ -159,3 +159,6 @@ CREATE TABLE `proponleZac`.`votosDebate` (
   `voto` TINYINT NOT NULL,
   PRIMARY KEY (`idvotosDebate`));
 
+INSERT INTO perfiles (perfil) VALUES ('Administrador');
+INSERT INTO perfiles (perfil) VALUES ('Ciudadano');
+INSERT INTO perfiles (perfil) VALUES ('Funcionario');
