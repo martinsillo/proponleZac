@@ -1,13 +1,17 @@
 <?php
- include('php/seguridad.php');
- $session_active = false;
+include('php/seguridad.php');
 if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     if($_SESSION['active'] == true AND
         $_SESSION['active_key'] = md5(sha1('ajdhakdjhakjshdkwdkahqwrñ43p9tw{uwaERT#$%VWAWEFWAwE#!$C"QX}'))){
         $session_active = true;
+    }else{
+        $session_active = false;
     }
+}else{
+    $session_active = false;
 }
 ?>
+
 <!Doctype HTML>
 <html lang="es">
 <head>
@@ -65,6 +69,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
 <br>
         <br><br>
      <?php if($session_active){echo "sesion activa"; }else{ echo "Sesion inactiva 0 ";} ?>
+        <?php var_dump($session_active); ?>
 
    <div class="pie_pag">
       <div class="container">
@@ -107,7 +112,7 @@ Zacatecas, Zac.<br>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/proponle.js?v=1.0.1"></script>
-    <script src="js/login.js.php" defer></script>
+    <script src="js/login.js.php"></script>
       <script>
 	// Load the SDK asynchronously
 	(function(d, s, id) {

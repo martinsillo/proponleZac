@@ -1,11 +1,24 @@
-
 <?php
-if(!isset($session_active)){$session_active = false;}
+session_start();
 if(!isset($_SESSION['facebook_id'])){$fb_id =0;}else{$fb_id =$_SESSION['facebook_id']; }
 if(!isset($_SESSION['full_name'])){$fb_name ="guy";}else{$fb_name =$_SESSION['full_name']; }
-if(!$session_active){
-    echo 'function loginProponle(datos){
 
+
+if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
+    if($_SESSION['active'] == true AND
+        $_SESSION['active_key'] = md5(sha1('ajdhakdjhakjshdkwdkahqwrñ43p9tw{uwaERT#$%VWAWEFWAwE#!$C"QX}'))){
+        $session_active = true;
+    }else{
+        $session_active = false;
+    }
+}else{
+    $session_active = false;
+}
+
+if($session_active == false){
+    echo 'function loginProponle(datos){
+     console.log(datos);
+     if(datos.id === undefined){return false;}
    $.ajax({
         method: "POST",
         url: "php/login.php",
@@ -77,6 +90,9 @@ $(function() {
 
   	var getFacebookData =  function() {
   		FB.api('/me', function(response) {
+            <?php if($session_active == false) { ?>
+                   loginProponle(response);
+            <?php } ?>
 	  		$('#login').after(div_session);
 	  		$('#login').remove();
 	  		$('#facebook-session strong').text("Bienvenido: "+response.name);
@@ -88,9 +104,7 @@ $(function() {
   		checkLoginState(function(data) {
   			if (data.status !== 'connected') {
   				FB.login(function(response) {
-                   <?php if(!$session_active) { ?>
-                   loginProponle(response);
-                    <?php } ?>
+
   					if (response.status === 'connected')
   						getFacebookData();
   				}, {scope: scopes});
