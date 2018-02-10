@@ -15,7 +15,7 @@ BEGIN
 			(select count(*) FROM comentariosDebate WHERE id_debate = d.id_debate) as comentarios,
 			u.nombre,
 			d.fecha_post,
-			d.contenido,
+			d.introduccion,
 			d.votos_favor,
 			d.votos_contra
 			FROM  debates d
@@ -53,7 +53,7 @@ BEGIN
 			FROM  debates d
 			inner join usuarios u on (d.id_usuario_auth = u.idUsuario)
 			where d.validado = 1 AND d.cerrado = c AND titulo_debate LIKE concat("%",@texto,"%") AND (d.fecha_post between @fecha1 and @fecha2 )  order by d.fecha_post DESC
-			LIMIT 0,10;
+			LIMIT b,e;
 
 
 
@@ -73,7 +73,7 @@ BEGIN
 			FROM  debates d
 			inner join usuarios u on (d.id_usuario_auth = u.idUsuario)
 			where d.validado = 1 AND d.cerrado = c  AND (d.fecha_post between @fecha1 and @fecha2 )  order by d.fecha_post DESC
-			LIMIT 0,10;
+			LIMIT b,e;
 
     END IF;
 
@@ -83,9 +83,9 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE insertarDebate(IN t VARCHAR(64) , IN u INT, IN f DATETIME, IN c TEXT )
+CREATE PROCEDURE insertarDebate(IN t VARCHAR(64) , IN u INT, IN f DATETIME, IN c TEXT, IN i TEXT )
 BEGIN
-    INSERT INTO debates(titulo_debate,id_usuario_auth,fecha_post,contenido) values (t,u,f,c);
+    INSERT INTO debates(id_usuario_auth,fecha_post,titulo_debate,introduccion,contenido) values (u,f,t,i,c);
     SELECT id_debate FROM debates WHERE titulo_debate = t AND id_usuario_auth = u and fecha_post = f;
 END $$
 DELIMITER ;

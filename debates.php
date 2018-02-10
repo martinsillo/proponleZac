@@ -176,7 +176,7 @@ Zacatecas, Zac.<br>
 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/proponle.js?v=1.1.0"></script>
+    <script src="js/proponle.js?v=1.1.2"></script>
     <script src="js/login.js.php" defer></script>
       <script>
 	// Load the SDK asynchronously

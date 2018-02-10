@@ -18,6 +18,7 @@ function guardarDebate() {
         data: {
             accion: 'agregar',
             titulo: $('#titulo_debate').val(),
+            introduccion: $('#introduccion_debate').val(),
             texto: $('#cuerpo_debate').val(),
             etiquetas: $('#etiquetas_debate').val()
         }

@@ -28,6 +28,10 @@ CREATE TABLE `perfiles`
     PRIMARY KEY (`idPerfil`)
 );
 
+INSERT INTO perfiles (perfil) VALUES ('Administrador');
+INSERT INTO perfiles (perfil) VALUES ('Ciudadano');
+INSERT INTO perfiles (perfil) VALUES ('Funcionario');
+
 ALTER TABLE `usuarios` ADD INDEX `perfilUsuario_idx` (`perfil` ASC);
 ALTER TABLE `proponleZac`.`usuarios`
     ADD CONSTRAINT `perfilUsuario`
@@ -41,9 +45,10 @@ ALTER TABLE `proponleZac`.`usuarios`
 CREATE TABLE `debates`
 (
     `id_debate` BIGINT NOT NULL AUTO_INCREMENT,
-    `titulo_debate` VARCHAR(64) NOT NULL,
     `id_usuario_auth` BIGINT NOT NULL,
     `fecha_post` DATETIME NOT NULL,
+    `titulo_debate` VARCHAR(64) NOT NULL,
+    `introduccion` TEXT NOT NULL,
     `contenido` TEXT NOT NULL,
     `votos_favor` BIGINT NOT NULL DEFAULT 0,
     `votos_contra` BIGINT NOT NULL DEFAULT 0,
@@ -159,6 +164,4 @@ CREATE TABLE `proponleZac`.`votosDebate` (
   `voto` TINYINT NOT NULL,
   PRIMARY KEY (`idvotosDebate`));
 
-INSERT INTO perfiles (perfil) VALUES ('Administrador');
-INSERT INTO perfiles (perfil) VALUES ('Ciudadano');
-INSERT INTO perfiles (perfil) VALUES ('Funcionario');
+

@@ -57,7 +57,8 @@ class debates{
         $fecha = date('Y-m-d H:i:s');
         $titulo = str_replace("'","\'",$_POST['titulo']);
         $texto = str_replace("'","\'",$_POST['texto']);
-        $Consulta = "CALL insertarDebate('".$titulo."',".$_SESSION['user_id'].",'".$fecha."','".$texto."')";
+        $intro = str_replace("'","\'",$_POST['introduccion']);
+        $Consulta = "CALL insertarDebate('".$titulo."',".$_SESSION['user_id'].",'".$fecha."','".$texto."','".$intro."')";
         $ExConsulta = $conexion->query($Consulta) or die($conexion->error);
         $res = $ExConsulta->fetch_array();
         $conexion->close();
