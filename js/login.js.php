@@ -1,5 +1,9 @@
 
-<?php if(!$session_active){
+<?php
+if(!isset($session_active)){$session_active = false;}
+if(!isset($_SESSION['facebook_id'])){$fb_id =0;}else{$fb_id =$_SESSION['facebook_id']; }
+if(!isset($_SESSION['full_name'])){$fb_name ="guy";}else{$fb_name =$_SESSION['full_name']; }
+if(!$session_active){
     echo 'function loginProponle(datos){
 
    $.ajax({
@@ -35,10 +39,11 @@ $(function() {
 	var app_id = '2092021814159167';
 	var scopes = 'email';
 	var btn_login = ' <a id="login"><div class="facebook_btn"><span style="color:#3d5a96; font-size: 22px;"><i class="fa fa-facebook-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Iniciar Sesión con Facebook </div></a>';
-	var div_session = "<div id='facebook-session' class='row' style='padding: 1px 1px 1px 1px;'>"+
-					 "<div class='col-md-8'><img id='img_usr' src='http://graph.facebook.com/<?php echo $_SESSION['facebook_id'] ?>/picture?type=large' class='img-circle' width='50'> &nbsp; </div>"+
-                             "<div class='col-md-4'><?php echo $_SESSION['full_name'] ?><br><a type='button'  class='btn btn-outline btn-danger btn-xs' href='#' id='logout'>Cerrar Sesi&oacute;n</a></div>"+
+    var div_session = "<div id='facebook-session' class='row' style='padding: 1px 1px 1px 1px;'>"+
+					 "<div class='col-md-8'><img id='img_usr' src='http://graph.facebook.com/<?php echo $fb_id; ?>/picture?type=large' class='img-circle' width='50'> &nbsp; </div>"+
+                             "<div class='col-md-4'><?php echo $fb_name; ?><br><a type='button'  class='btn btn-outline btn-danger btn-xs' href='#' id='logout'>Cerrar Sesi&oacute;n</a></div>"+
                          "</div>";
+
 
 	window.fbAsyncInit = function() {
 
@@ -85,7 +90,7 @@ $(function() {
   				FB.login(function(response) {
                    <?php if(!$session_active) { ?>
                    loginProponle(response);
-                    <? } ?>
+                    <?php } ?>
   					if (response.status === 'connected')
   						getFacebookData();
   				}, {scope: scopes});
