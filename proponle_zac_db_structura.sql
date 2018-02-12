@@ -75,8 +75,8 @@ CREATE TABLE `respuestasComentarios`
     `fecha` DATETIME NOT NULL,
     `respuesta` TEXT NOT NULL,
     `validado` TINYINT NOT NULL default 0,
-    `votos_favor` BIGINT NOT NULL,
-    `votos_contra` BIGINT NOT NULL,
+    `votos_favor` BIGINT NOT NULL DEFAULT 0,
+    `votos_contra` BIGINT NOT NULL DEFAULT 0,
     PRIMARY KEY (`id_respuesta`)
 )COMMENT = 'Respuestas a los comentarios de los debates';
 

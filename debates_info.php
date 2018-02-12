@@ -148,9 +148,25 @@ nfo estadisitca debate
                          echo '<span class="'.$letter.'-circle">'.$letter.'</span> '.$ResComent[1].' • '.$fechaC.'<br><br>';
                          echo '<p>'.$ResComent[3].'</p>';
                          echo '<div class="row" style="padding:3px 3px 3px 3px; border-top:solid 1px #ccc; border-bottom:solid 1px #ccc;">';
-                         echo '<div class="col-sm-8">'.$responder.'</div>';
+                         echo '<div class="col-sm-8">'.$responder;
+                         echo "<br>";
+                          $queryRespuestas = "select u.nombre,r.fecha,r.respuesta from respuestasComentarios r inner join usuarios u on(u.idUsuario = r.id_usuario) WHERE r.id_comentario = ".$ResComent[0]." and r.id_debate = ".$_GET['debateId']." and r.validado = 1 order by fecha ASC ";
+                          $conexion = $conn->conectar(3);
+                          $ExRespuestas = $conexion->query($queryRespuestas) or die ($conexion->error);
+                          while($ResRespuestas = $ExRespuestas->fetch_array(MYSQLI_NUM)){
+                            echo "<div class='respuestas'>";
+                               $fechaR = date_create($ResRespuestas[1]);
+                                $fechaR = date_format($fechaR, 'd/m/Y H:i:s');
+                               $letter2 = strtoupper(substr($ResRespuestas[0],0,1));
+                         echo '<span class="'.$letter2.'-circle">'.$letter2.'</span> '.$ResRespuestas[0].' • '.$fechaR.'<br><br>';
+                               echo '<p>'.$ResRespuestas[2].'</p>';
+                            echo '</div>';
+                          }
+                          $ExRespuestas->free_result();
+                          $conexion->close();
 
-                         echo '<div class="col-sm-4"><small>200 Votos | <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 100  •  <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 100</small></div></div><br><br>';
+
+                         echo '</div><div class="col-sm-4"><small>200 Votos | <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 100  •  <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 100</small></div></div><br><br>';
                         }
 
                   }
@@ -234,10 +250,12 @@ Zacatecas, Zac.<br>
             });
         }
 
-        function responder_comentario(){
+        function responderComentario(i){
             $.ajax({
-                url: "views/respondeComentario.html",
-                context: document.body
+                url: "views/responderComentario.php",
+                context: document.body,
+                method: "POST",
+                data: {idComentario: i }
                 }).done(function(msg) {
                 document.getElementById("myModal").innerHTML = msg;
                 modal();
@@ -258,6 +276,22 @@ Zacatecas, Zac.<br>
             return false;
 
         }
+
+        function guardarRespuesta(){
+
+                $.ajax({
+                url: "php/debates.php",
+                 method: "POST",
+                data: { accion: 'respuesta', debate: '<?php echo $_GET['debateId'];?>', comentario: $('#idComentarioActual').val(),  usuario: '<?php echo $_SESSION['user_id']; ?>', respuesta: $('#respuesta_txt').val() }
+                }).done(function(msg) {
+                 console.log(msg);
+                alert('Su respuesta ha sido envido para revisi&oacute;n, gracias por participar');
+                $('#myModal').modal('hide');
+            });
+            return false;
+        }
+
+
         function modal(){
             $("#myModal").modal();
         }

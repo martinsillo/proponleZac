@@ -26,8 +26,7 @@ class debates{
             $array_reference = array(" ","!");
             if($t != 'null'){$t = '"'.str_replace($array_chars,$array_reference,$t).'"'; }
             $ConsultaDebates = 'call debatesList('.$inicio.','.$fin.','.$a.','.$t.','.$f1.','.$f2.')';
-
-            $exQuery = $conexion->query($ConsultaDebates) or die ($data->error);
+            $exQuery = $conexion->query($ConsultaDebates) or die ($conexion->error);
             $conexion->close();
 
             while($res = $exQuery->fetch_array()){
@@ -203,6 +202,21 @@ class debates{
         unset($c);
         return "success";
     }
+    function responderComentario($d,$coment,$u,$r){
+        date_default_timezone_set('America/Mexico_City');
+        session_start();
+        require_once('conexion.php');
+        $c = new conexion();
+        $conexion = $c->conectar(2);
+        $fecha = date('Y-m-d H:i:s');
+        $tQuery = 'INSERT INTO respuestasComentarios (id_debate,id_comentario,id_usuario,fecha,respuesta) VALUES ('.$d.','.$coment.','.$u.',"'.$fecha.'","'.$r.'")';
+        $conexion->query($tQuery);
+        $conexion->close() or die ($conexion->error);
+        unset($conexion);
+        unset($c);
+        return "success";
+
+    }
 }
 
 if(isset($_POST['accion'])){
@@ -216,6 +230,9 @@ if(isset($_POST['accion'])){
     break;
     case "comentar":
         echo $d->comentarDebate($_POST['debate'],$_POST['usuario'],$_POST['comentario']);
+    break;
+     case "respuesta":
+         echo $d->responderComentario($_POST['debate'],$_POST['comentario'],$_POST['usuario'],$_POST['respuesta']);
     break;
  }
 }

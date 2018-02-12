@@ -12,7 +12,7 @@ BEGIN
 			SELECT
 			d.id_debate,
 			d.titulo_debate,
-			(select count(*) FROM comentariosDebate WHERE id_debate = d.id_debate) as comentarios,
+			(select count(*) FROM comentarios WHERE id_debate = d.id_debate) as comentarios,
 			u.nombre,
 			d.fecha_post,
 			d.introduccion,
@@ -27,7 +27,7 @@ BEGIN
             SELECT
 			d.id_debate,
 			d.titulo_debate,
-			(select count(*) FROM comentariosDebate WHERE id_debate = d.id_debate) as comentarios,
+			(select count(*) FROM comentarios WHERE id_debate = d.id_debate) as comentarios,
 			u.nombre,
 			d.fecha_post,
 			d.contenido,
@@ -44,7 +44,7 @@ BEGIN
           SELECT
 			d.id_debate,
 			d.titulo_debate,
-			(select count(*) FROM comentariosDebate WHERE id_debate = d.id_debate) as comentarios,
+			(select count(*) FROM comentarios WHERE id_debate = d.id_debate) as comentarios,
 			u.nombre,
 			d.fecha_post,
 			d.contenido,
