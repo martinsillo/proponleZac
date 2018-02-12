@@ -1,3 +1,4 @@
+-- user privileges
 GRANT SELECT ON proponleZac.*  TO 'proponleZacConsulta'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.debatesList TO 'proponleZacConsulta'@'localhost';
 GRANT SELECT,INSERT,UPDATE,DELETE ON proponleZac.* TO 'proponleZacUsr'@'localhost';

@@ -198,6 +198,6 @@ c.aFavor,
 c.enContra
 from comentarios c
 inner join usuarios u on (c.id_usuario = u.idUsuario)
-where c.id_debate = d and c.validado=1;
+where c.id_debate = d and c.validado=1 order by c.fecha ASC;
 end $$
 delimiter ;

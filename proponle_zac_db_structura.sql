@@ -1,9 +1,9 @@
 CREATE DATABASE proponleZac;
 ALTER SCHEMA `proponleZac`  DEFAULT CHARACTER SET utf8 ;
-CREATE USER 'proponleZacAdm'@'localhost' IDENTIFIED BY '>GD2R3,(<xj8m:<a';
-GRANT ALL PRIVILEGES ON proponleZac.* TO 'proponleZacAdm'@'localhost';
-CREATE USER 'proponleZacUsr'@'localhost' IDENTIFIED BY 'uxU2j*6gXVTT;_#7';
-CREATE USER 'proponleZacConsulta'@'localhost' IDENTIFIED BY '!<x8KS@CKKbx=gWF';
+ CREATE USER 'proponleZacAdm'@'localhost' IDENTIFIED BY '>GD2R3,(<xj8m:<a';
+ GRANT ALL PRIVILEGES ON proponleZac.* TO 'proponleZacAdm'@'localhost';
+ CREATE USER 'proponleZacUsr'@'localhost' IDENTIFIED BY 'uxU2j*6gXVTT;_#7';
+ CREATE USER 'proponleZacConsulta'@'localhost' IDENTIFIED BY '!<x8KS@CKKbx=gWF';
 USE proponleZac;
 
 
@@ -74,6 +74,7 @@ CREATE TABLE `respuestasComentarios`
     `id_usuario` BIGINT NOT NULL,
     `fecha` DATETIME NOT NULL,
     `respuesta` TEXT NOT NULL,
+    `validado` TINYINT NOT NULL default 0,
     `votos_favor` BIGINT NOT NULL,
     `votos_contra` BIGINT NOT NULL,
     PRIMARY KEY (`id_respuesta`)
@@ -92,27 +93,25 @@ CREATE TABLE `etiquetaDebate` (
   `idDebate` BIGINT NOT NULL
 );
 
-ALTER TABLE `comentariosDebate`
-    ADD INDEX `usuarioComenta_idx` (`id_usuario` ASC),
-    ADD INDEX `debateComenta_idx` (`id_debate` ASC);
 
-ALTER TABLE `proponleZac`.`comentariosDebate`
-    ADD CONSTRAINT `usuarioComenta`
-    FOREIGN KEY (`id_usuario`)
-    REFERENCES `proponleZac`.`usuarios` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-    ADD CONSTRAINT `debateComenta`
-    FOREIGN KEY (`id_debate`)
-    REFERENCES `proponleZac`.`debates` (`id_debate`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
 
 
 ALTER TABLE `respuestasComentarios`
     ADD INDEX `respuestaDebate_idx` (`id_debate` ASC),
     ADD INDEX `respuestaComentario_idx` (`id_comentario` ASC),
     ADD INDEX `respuestaUsuario_idx` (`id_usuario` ASC);
+
+
+    CREATE TABLE `proponleZac`.`comentarios` (
+  `idcomentario` BIGINT NOT NULL AUTO_INCREMENT,
+  `id_debate` BIGINT NOT NULL,
+  `id_usuario` BIGINT NOT NULL,
+  `fecha` DATETIME NOT NULL,
+  `comentario` TEXT NOT NULL,
+  `validado` TINYINT NOT NULL DEFAULT 0,
+  `aFavor` INT NOT NULL DEFAULT 0,
+  `enContra` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`idcomentario`));
 
 ALTER TABLE `proponleZac`.`respuestasComentarios`
     ADD CONSTRAINT `respuestaDebate`
@@ -122,7 +121,7 @@ ALTER TABLE `proponleZac`.`respuestasComentarios`
     ON UPDATE NO ACTION,
     ADD CONSTRAINT `respuestaComentario`
     FOREIGN KEY (`id_comentario`)
-    REFERENCES `proponleZac`.`comentariosDebate` (`id_comentario`)
+    REFERENCES `proponleZac`.`comentarios` (`idcomentario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     ADD CONSTRAINT `respuestaUsuario`
@@ -155,16 +154,7 @@ CREATE TABLE `proponleZac`.`votosDebate` (
   PRIMARY KEY (`idvotosDebate`));
 
 
-CREATE TABLE `proponleZac`.`comentarios` (
-  `idcomentario` BIGINT NOT NULL AUTO_INCREMENT,
-  `id_debate` BIGINT NOT NULL,
-  `id_usuario` BIGINT NOT NULL,
-  `fecha` DATETIME NOT NULL,
-  `comentario` TEXT NOT NULL,
-  `validado` TINYINT NOT NULL DEFAULT 0,
-  `aFavor` INT NOT NULL DEFAULT 0,
-  `enContra` INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`idcomentario`));
+
 
   ALTER TABLE `proponleZac`.`comentarios`
 ADD INDEX `comentario_debate_idx` (`id_debate` ASC),
@@ -180,4 +170,3 @@ ADD CONSTRAINT `usuario_comentario`
   REFERENCES `proponleZac`.`usuarios` (`idUsuario`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
-
