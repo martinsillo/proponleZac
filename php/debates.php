@@ -83,9 +83,6 @@ class debates{
     function eliminar(){
         return false;
     }
-    function comentar(){
-        return false;
-    }
     function etiquetar($i){
         $c = new conexion();
         $conn = $c->conectar(3);
@@ -192,6 +189,20 @@ class debates{
         $conexion->close();
         return "success";
     }
+    function comentarDebate($d,$u,$coment){
+        date_default_timezone_set('America/Mexico_City');
+        session_start();
+        require_once('conexion.php');
+        $c = new conexion();
+        $conexion = $c->conectar(2);
+        $fecha = date('Y-m-d H:i:s');
+        $tQuery = 'INSERT INTO comentarios (id_debate,id_usuario,fecha,comentario) VALUES ('.$d.','.$u.',"'.$fecha.'","'.$coment.'")';
+        $conexion->query($tQuery);
+        $conexion->close() or die ($conexion->error);
+        unset($conexion);
+        unset($c);
+        return "success";
+    }
 }
 
 if(isset($_POST['accion'])){
@@ -203,36 +214,8 @@ if(isset($_POST['accion'])){
     case "votar":
         echo $d->votarDebate($_POST);
     break;
+    case "comentar":
+        echo $d->comentarDebate($_POST['debate'],$_POST['usuario'],$_POST['comentario']);
+    break;
  }
 }
-
-
-
-
-
-
-/*
-
-
-function addDebate($conn){
-    $conexion = $conn->conectar(2);
-    $fecha = date('Y-m-d H:i:s');
-    $Consulta = 'CALL insertarDebate("'.$_POST['titulo'].'",'.$_SESSION['user_id'].',"'.$fecha.'","'.$_POST['texto'].'")';
-    $ExConsulta = $conexion->query($Consulta) or die($conexion->error);
-    $res = $ExConsulta->fetch_array();
-    $conexion->close();
-    unset($conexion);
-    $etiquetas = explode(",",$_POST['etiquetas']);
-    foreach($etiquetas as $val){
-        $conexion = $conn->conectar(2);
-        $query = "CALL insertarEtiquetas('".$val."',".$res[0].")";
-        $conexion->query($query) or die ($conexion->error);
-        $conexion->close();
-        unset($conexion);
-
-    }
-
-     return "successful";
-}
-
-*/

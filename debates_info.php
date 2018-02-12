@@ -1,4 +1,5 @@
 <?php
+setlocale(LC_TIME, 'es_MX');
 date_default_timezone_set('America/Mexico_City');
 require_once('php/seguridad.php');
 require_once('php/conexion.php');
@@ -11,6 +12,23 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     }
 }
 
+$conn = new conexion();
+$conexion = $conn->conectar(3);
+$queryInfo = "SELECT
+d.titulo_debate,
+u.nombre,
+d.fecha_post,
+d.introduccion,
+d.contenido
+FROM debates d
+INNER JOIN usuarios u on (d.id_usuario_auth = u.idUsuario)
+WHERE d.id_debate = ".$_GET['debateId'];
+$ExQueryInfo = $conexion->query($queryInfo) or die ($conexion->error);
+$Res = $ExQueryInfo->fetch_Array(MYSQLI_NUM);
+$ExQueryInfo->free_result();
+unset($ExQueryInfo);
+$conexion->close();
+unset($conexion);
 ?>
 <!Doctype HTML>
 <html lang="es">
@@ -26,7 +44,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     <link rel="shortcut icon" type="image/x-icon" href="img/icon.ico" />
     <link rel="stylesheet" href="css/bootstrap.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
-    <link rel="stylesheet" href="css/proponle.css?v=1.2.1">
+    <link rel="stylesheet" href="css/proponle.css?v=1.2.3">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/font-awesome.css">
 </head>
@@ -34,35 +52,17 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
         <div class="barra_top">
             Transparencia &nbsp;|&nbsp; Datos Abiertos &nbsp;|&nbsp; Foros Locales &nbsp;|&nbsp; <i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;&nbsp;<i class="fa fa-twitter-square" aria-hidden="true"></i>&nbsp;
         </div>
-        <div class="contenido" style="padding-left: 10%; padding-right: 10%;">
+         <div class="contenido" style="padding-left: 5%; padding-right: 5%;">
             <div class="row" style="padding: 1px 1px 1px 1px;">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <img src="img/logo2.png"  class="img-responsive" style="margin: 0 auto;">
                 </div>
-                <div class="col-md-6" style="text-align:right; padding-right: 20%">
-                                  <?php
-                       if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
-                           if($_SESSION['active'] == true AND
-    $_SESSION['active_key'] = md5(sha1('ajdhakdjhakjshdkwdkahqwrñ43p9tw{uwaERT#$%VWAWEFWAwE#!$C"QX}'))) {
-                               ?>
-                         <div class="row" style="padding: 1px 1px 1px 1px;">
-                             <div class="col-md-8"><img id="img_usr" src="http://graph.facebook.com/<?php echo $_SESSION['facebook_id'] ?>/picture?type=large" class="img-circle" width="50"> &nbsp; </div>
-                             <div class="col-md-4"><?php echo $_SESSION['full_name'] ?><br><a type="button"  class="btn btn-outline btn-danger btn-xs" href="javascript:logout();">Cerrar Sesi&oacute;n</a></div>
-                         </div>
-                    <?php
-
-                       }else{
-                            echo '<a type="button" class="btn btn-outline btn-default" href="login.php">Entrar</a>';
-                             echo '<a type="button" class="btn btn-outline btn-primary" href="registro.php">Registrarse</a>';
-                        }
-                       }else{
-                            echo '<a id="entrar" type="button" class="btn btn-outline btn-default" href="login.php">Entrar</a>
-                     <a type="button" class="btn btn-outline btn-primary" href="registro.php">Registrarse</a>';
-
-                       }
-                          ?>
+                <div class="col-md-4" style="text-align:right; padding-right: 20%">
+                  <a id="login"><div class="facebook_btn"><span style="color:#3d5a96; font-size: 22px;"><i class="fa fa-facebook-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Iniciar Sesión con Facebook </div></a>
+<!-- loginform -->
                 </div>
             </div>
+<!-- Barra de Navegación -->
             <br>
             </div>
 <div class="topnav" id="myTopnav">
@@ -75,73 +75,88 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
     <div class="titulo_pagina">
-        <h3>Debates Ciudadanos</h3>
+        <h4>Debates Ciudadanos</h4>
     </div>
     <div style="padding-top: 15px; padding-left: 10%; padding-right: 10%; padding-bottom:1%;">
 
         <div class="row">
             <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-md-8"><h4><a href="<?php
 
-                               echo "?cerrados=0"; ?>"> Debates Actuales</a> | <a href="<?php
-
-                               echo "?cerrados=1"; ?>"> Debates Cerrados</a></h4> </div>
-        <div class="col-md-4">Buscar</div>
-
-        </div>
+<small><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver</small>
+                <h3><?php echo $Res[0]; ?></h3>
+                <span class="L-circle">L</span> <?php echo $Res[1]; ?> • <?php $fecha = date_create($Res[2]); echo date_format($fecha, 'd-m-Y'); ?>  • comentarios
                 <hr>
-                <?php
-                    $debates = new debates();
-                    if(isset($_GET['pagina'])){$rango =$_GET['pagina']; } else {$pagina=1;}
-
-                    if(isset($_GET['cerrados'])){ $cerrado = $_GET['cerrados']; } else { $cerrado = 0; }
-
-                    if(isset($_GET['texto'])){$texto =$_GET['texto']; } else {$texto='null';}
-                    if(isset($_GET['fecha1'])){$fecha1 =$_GET['fecha1']; } else {$fecha1 = 'null';}
-                    if(isset($_GET['fecha2'])){$fecha2 =$_GET['fecha2']; } else {$fecha2 = 'null';}
+                <h4>Introducci&oacute;n</h4>
+                <p><?php echo $Res[3]; ?></p>
+                <h4>Contenido</h4>
+                <p><?php echo $Res[4]; ?></p>
+                <hr>
 
 
-                    $info = $debates->listar($pagina,$cerrado,$texto,$fecha1,$fecha2,$session_active);
-                    print($info);
-                ?>
-                <br>
-                  <?php
-                       $registrosDeb = $debates->contarDebates();
 
-                        if($registrosDeb < 11 ){
-                            $loop = 1;
-                        }else{
-                            $div = intdiv($registrosDeb,10);
-                            $mod = $registrosDeb % 10;
-                            if($mod != 0){ $mod = 1; }else{$mod = 0;}
-                            $loop = $div + $mod;
-                        }
-                     ?>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default" href="#1"><i class="fa fa-chevron-left"></i></button>
-                    <?php
-                      for($x = 0; $x<$loop; $x++){
-                         echo '<button class="btn btn-default">'.($x+1).'</button>';
-                          //  <button class="btn btn-default  active">2</button>
-                      }
-                    ?>
-                    <button type="button" class="btn btn-default" href="#<?php echo $loop;?>"><i class="fa fa-chevron-right"></i></button>
-                </div>
 
             </div>
             <div class="col-md-4" style="border-left:solid 1px #dfe2e2;">
-
-               <?php if($session_active) {?> <button type="button" class="btn btn-primary btn-outline" onclick="nuevo_debate();">Empieza un debate</button><br><?php } ?>
-                <br>
-                <button type="button" class="btn btn-info btn-outline">Ayuda sobre debates</button>
-                <hr>
-                <strong>Tendencias</strong><br>
-                <?php echo $debates->etiqeutasMasVisitadas(); ?>
-                <hr>
+nfo estadisitca debate
             </div>
         </div>
+<div class="row">
+    <div class="col-md-12">
+    <h4>Comentarios</h4>
+                <?php
+                  if($session_active == false){
+                      echo '<div class="google_btn">Es necesario que inicies sesion para participar en los comentarios</div><br><br>';
+                  }else{
+                      echo '<button type="button" class="btn btn-sm btn-outline btn-primary" onclick=nuevo_comentario()><i class="fa fa-commenting" aria-hidden="true"></i> &nbsp;Haz tu Comentario</button><br><br>';
+                  }
 
+                  $contarQuery = "SELECT count(*) FROM comentarios WHERE id_debate = ".$_GET['debateId'];
+                  $conexion = $conn->conectar(3);
+                  $ExContar = $conexion->query($contarQuery) or die ($conexion->error);
+                  $ResContar = $ExContar->fetch_array(MYSQLI_NUM);
+                  $ExContar->free_result();
+                  $conexion->close();
+                unset($conexion);
+                unset($ExContar);
+                  if($ResContar[0] == 0){
+                      echo '<div class="google_btn">El debate a&uacute;n no cuenta con respuestas.</div>';
+                  }else{
+                        $conexion = $conn->conectar(3);
+                        $QueryComent = "call comentarios(".$_GET['debateId'].")";
+                        $ExQueryComent = $conexion->query($QueryComent) or die ($conexion->error);
+
+                        while($ResComent = $ExQueryComent->fetch_array(MYSQLI_NUM)){
+
+                             $conexion = $conn->conectar(3);
+                             $contarRespuestas = "SELECT count(*) FROM respuestasComentarios WHERE id_debate = ".$_GET['debateId']." and id_comentario = ".$ResComent[0]." and validado = 1";
+                             $ExContarRes = $conexion->query($contarRespuestas) or die ($conexion->error);
+                             $ResContarResp = $ExContarRes->fetch_array(MYSQLI_NUM);
+                             $ExContarRes->free_result();
+                             $conexion->close();
+
+                            if($session_active == true){
+                            $responder = $ResContarResp[0].' Respuestas  • <button type="button" class="btn btn-outline btn-primary2 btn-xs" onclick="responderComentario('.$ResComent[0].')"><i class="fa fa-comments-o" aria-hidden="true"></i>  Responder </button> ';
+                        }else{
+                            $responder = $ResContarResp[0].' Respuestas';
+                        }
+
+
+
+                         $fechaC = date_create($ResComent[2]);
+                         $fechaC = date_format($fechaC, 'd/m/Y H:i:s');
+                         $letter = strtoupper(substr($ResComent[1],0,1));
+                         echo '<span class="'.$letter.'-circle">'.$letter.'</span> '.$ResComent[1].' • '.$fechaC.'<br><br>';
+                         echo '<p>'.$ResComent[3].'</p>';
+                         echo '<div class="row" style="padding:3px 3px 3px 3px; border-top:solid 1px #ccc; border-bottom:solid 1px #ccc;">';
+                         echo '<div class="col-sm-8">'.$responder.'</div>';
+
+                         echo '<div class="col-sm-4"><small>200 Votos | <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 100  •  <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 100</small></div></div><br><br>';
+                        }
+
+                  }
+                ?>
+    </div>
+</div>
 
 
     </div>
@@ -195,12 +210,23 @@ Zacatecas, Zac.<br>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/proponle.js?v=1.1.0"></script>
-    <?php if($session_active){ ?>
+        <script src="js/login.js.php" defer></script>
+      <script>
+	// Load the SDK asynchronously
+	(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "https://connect.facebook.net/en_US/sdk.js";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+	 </script>
+    <?php if($session_active == true){ ?>
     <script>
 
-        function nuevo_debate(){
+        function nuevo_comentario(){
             $.ajax({
-                url: "views/nuevoDebate.html",
+                url: "views/nuevoComentario.html",
                 context: document.body
                 }).done(function(msg) {
                 document.getElementById("myModal").innerHTML = msg;
@@ -208,23 +234,35 @@ Zacatecas, Zac.<br>
             });
         }
 
+        function responder_comentario(){
+            $.ajax({
+                url: "views/respondeComentario.html",
+                context: document.body
+                }).done(function(msg) {
+                document.getElementById("myModal").innerHTML = msg;
+                modal();
+            });
+        }
 
+        function guardarComentario(){
+             $.ajax({
+                url: "php/debates.php",
+                 method: "POST",
+                data: { accion: 'comentar', debate: '<?php echo $_GET['debateId'];?>', usuario: '<?php echo $_SESSION['user_id']; ?>', comentario: $('#comentario_txt').val() }
+                }).done(function(msg) {
+                 console.log(msg);
+                alert('Su comentario ha sido envido para revisi&oacute;n, gracias por participar');
+                $('#myModal').modal('hide');
+            });
+
+            return false;
+
+        }
         function modal(){
             $("#myModal").modal();
         }
 
-        function votar(d,v){
-               $.ajax({
-                method: "POST",
-                url: "php/debates.php",
-                data: { accion: 'votar', debate: d, voto: v  }
-                }).done(function(msg) {
-                   console.log(msg);
-                    if(msg === 'success'){
-                        location.reload();
-                    }
-            });
-        }
+
 
     </script>
     <?php } ?>

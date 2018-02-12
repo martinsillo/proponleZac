@@ -127,3 +127,45 @@ body{
     width:90%;
     text-align: justify;
 }
+
+.A-circle, .F-circle, .K-circle, .P-circle, .U-circle, .Z-circle  {
+    background: #f24a02;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 50%;
+    font-size: 12px;
+}
+
+.B-circle, .G-circle, .L-circle, .Q-circle,  .V-circle   {
+    background: #028e10;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 50%;
+    font-size: 12px;
+}
+
+.C-circle, .H-circle, .M-circle, .R-circle, .W-circle   {
+    background: #0254d8;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 50%;
+    font-size: 12px;
+}
+
+.D-circle, .I-circle, .N-circle, .S-circle, .X-circle   {
+    background: #917004;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 50%;
+    font-size: 12px;
+}
+
+.E-circle, .J-circle, .O-circle, .T-circle, .Y-circle   {
+    background: #591c68;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 50%;
+    font-size: 12px;
+}
+
+

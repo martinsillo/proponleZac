@@ -64,7 +64,7 @@ BEGIN
         SELECT
 			d.id_debate,
 			d.titulo_debate,
-			(select count(*) FROM comentariosDebate WHERE id_debate = d.id_debate) as comentarios,
+			(select count(*) FROM comentarios WHERE id_debate = d.id_debate) as comentarios,
 			u.nombre,
 			d.fecha_post,
 			d.contenido,
@@ -183,5 +183,21 @@ create procedure buscarVoto(in u int, in d int)
 begin
     set @votado = (select count(*) from votosDebate where idDebate = d and idUsuario = u);
     select if(@votado = 1,(select voto from votosDebate where idDebate = d and idUsuario = u),'0');
+end $$
+delimiter ;
+
+delimiter $$
+create procedure comentarios(in d int)
+begin
+select
+c.idcomentario,
+u.nombre,
+c.fecha,
+c.comentario,
+c.aFavor,
+c.enContra
+from comentarios c
+inner join usuarios u on (c.id_usuario = u.idUsuario)
+where c.id_debate = d and c.validado=1;
 end $$
 delimiter ;
