@@ -50,11 +50,10 @@ $(function() {
 
 	var app_id = '2092021814159167';
 	var scopes = 'public_profile,user_hometown,email';
-	var btn_login = ' <a id="login"><div class="facebook_btn"><span style="color:#3d5a96; font-size: 22px;"><i class="fa fa-facebook-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Iniciar Sesión con Facebook </div></a>';
-    var div_session = "<div id='facebook-session' class='row' style='padding: 1px 1px 1px 1px;'>"+
-					 "<div class='col-md-10'><img id='img_usr' src='http://graph.facebook.com/<?php echo $fb_id; ?>/picture?type=large' class='img-circle' width='50'><br>"+
-                             "<?php echo $fb_name; ?><br><a type='button'  class='btn btn-outline btn-danger btn-xs' href='#' id='logout'>Cerrar Sesi&oacute;n</a></div>"+
-                         "</div>";
+	var btn_login = ' <span id="init_sesion">Iniciar sesión:</span> <a id="login" class="btn btn-outline btn-primary btn-xs"><i class="fa fa-facebook" aria-hidden="true"></i></a>';
+    var div_session = "<div id='facebook-session' style='padding: 1px 1px 1px 1px;'>"+
+					 "<img id='img_usr' src='http://graph.facebook.com/<?php echo $fb_id; ?>/picture?type=large' class='img-circle' width='35'>&nbsp;"+
+                             "<?php echo $fb_name; ?>&nbsp;<a type='button'  class='btn btn-outline btn-danger btn-xs' href='#' id='logout'>Cerrar Sesi&oacute;n</a></div>";
 
 
 	window.fbAsyncInit = function() {
@@ -94,8 +93,8 @@ $(function() {
             <?php } ?>
 	  		$('#login').after(div_session);
 	  		$('#login').remove();
-	  		$('#facebook-session strong').text("Bienvenido: "+response.name);
-	  		$('#facebook-session img').attr('src','http://graph.facebook.com/'+response.id+'/picture?type=large');
+	  		//$('#facebook-session strong').text("Bienvenido: "+response.name);
+	  		//$('#facebook-session img').attr('src','http://graph.facebook.com/'+response.id+'/picture?type=large');
 	  	});
   	}
 

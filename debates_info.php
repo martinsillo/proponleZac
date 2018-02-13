@@ -44,35 +44,32 @@ unset($conexion);
     <link rel="shortcut icon" type="image/x-icon" href="img/icon.ico" />
     <link rel="stylesheet" href="css/bootstrap.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
-    <link rel="stylesheet" href="css/proponle.css?v=1.2.3">
+    <link rel="stylesheet" href="css/proponle.css?v1.1.1">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/font-awesome.css">
+     <link rel="stylesheet" href="css/font-awesome.css">
 </head>
-    <body>
-        <div class="barra_top">
-            Transparencia &nbsp;|&nbsp; Datos Abiertos &nbsp;|&nbsp; Foros Locales &nbsp;|&nbsp; <i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;&nbsp;<i class="fa fa-twitter-square" aria-hidden="true"></i>&nbsp;
-        </div>
-         <div class="contenido" style="padding-left: 5%; padding-right: 5%;">
-            <div class="row" style="padding: 1px 1px 1px 1px;">
-                <div class="col-md-8">
-                    <img src="img/logo2.png"  class="img-responsive" style="margin: 0 auto;">
-                </div>
-                <div class="col-md-4" style="text-align:right; padding-right: 20%">
-                  <a id="login"><div class="facebook_btn"><span style="color:#3d5a96; font-size: 22px;"><i class="fa fa-facebook-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Iniciar Sesión con Facebook </div></a>
-<!-- loginform -->
-                </div>
-            </div>
-<!-- Barra de Navegación -->
-            <br>
-            </div>
-<div class="topnav" id="myTopnav">
-  <a href="index.php" >Inicio</a>
-  <a href="#" class="active">Debates</a>
-  <a href="propuestas.php">Propuestas</a>
-  <a href="sondeos.php">Sondeos/Votaciones</a>
-  <a href="documentos.php">Documentos</a>
-  <a href="informacion.php">Más Información</a>
+<body>
+<div class="encabezado" width="100%">
+   <?php if ($session_active == false) { ?>
+    <span id='init_sesion'>Iniciar sesión:</span> <?php } ?><a id="login" class="btn btn-outline btn-primary btn-xs">
+<i class="fa fa-facebook" aria-hidden="true"></i></a>
+</div>
+<div class="menu">
+<div class="row" style="padding:1px 1px 1px 1px">
+  <div class="col-sm-2">
+    <img src="img/Proponle_A_Zacatecas.png" width="150">
+   </div>
+<div class="col-sm-10" style="padding-top:20px;">
+  <div class="topnav" id="myTopnav">
+  <a href="index.php">Inicio</a>
+  <a href="#" class="activo"><span style="color:#f00;">Debates</span></a>
+  <a href="prpuestas.php">Propuestas</a>
+   <a href="http://avanzamostodos.zacagtecas.gob.mx" target="_blank">Presupuesto Participativo</a>
+
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+    </div>
+    </div>
 </div>
     <div class="titulo_pagina">
         <h4>Debates Ciudadanos</h4>

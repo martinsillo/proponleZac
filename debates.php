@@ -26,33 +26,32 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     <link rel="shortcut icon" type="image/x-icon" href="img/icon.ico" />
     <link rel="stylesheet" href="css/bootstrap.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
-    <link rel="stylesheet" href="css/proponle.css?v=1.0.2">
+    <link rel="stylesheet" href="css/proponle.css?v1.1.1">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/font-awesome.css">
+     <link rel="stylesheet" href="css/font-awesome.css">
 </head>
-    <body>
-        <div class="barra_top">
-           &nbsp;
-        </div>
-         <div class="contenido" style="padding-left: 1%; padding-right: 1%; width:100%;">
-            <div class="row" style="padding: 1px 1px 1px 1px;">
-                <div class="col-sm-8">
-                     <img src="img/Proponle_A_Zacatecas.png" width="150">
-                </div>
-                <div class="col-md-4" style="text-align:right; ">
-                  <a id="login" class="btn btn-outline btn-info"><i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;Iniciar Sesión con Facebook </a>
-<!-- loginform -->
-                </div>
-            </div>
-<!-- Barra de Navegación -->
-            <br>
-            </div>
-<div class="topnav" id="myTopnav">
-  <a href="index.php" >Inicio</a>
-  <a href="#" class="active">Debates</a>
-  <a href="propuestas.php">Propuestas</a>
+<body>
+<div class="encabezado" width="100%">
+   <?php if ($session_active == false) { ?>
+    <span id='init_sesion'>Iniciar sesión:</span> <?php } ?><a id="login" class="btn btn-outline btn-primary btn-xs">
+<i class="fa fa-facebook" aria-hidden="true"></i></a>
+</div>
+<div class="menu">
+<div class="row" style="padding:1px 1px 1px 1px">
+  <div class="col-sm-2">
+    <img src="img/Proponle_A_Zacatecas.png" width="150">
+   </div>
+<div class="col-sm-10" style="padding-top:20px;">
+  <div class="topnav" id="myTopnav">
+  <a href="index.php">Inicio</a>
+  <a href="#" class="activo"><span style="color:#f00;">Debates</span></a>
+  <a href="prpuestas.php">Propuestas</a>
+   <a href="http://avanzamostodos.zacagtecas.gob.mx" target="_blank">Presupuesto Participativo</a>
 
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+    </div>
+    </div>
 </div>
     <div class="titulo_pagina">
         <h3>Debates Ciudadanos</h3>
@@ -67,7 +66,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
                                echo "?cerrados=0"; ?>"> Debates Actuales</a> | <a href="<?php
 
                                echo "?cerrados=1"; ?>"> Debates Cerrados</a></h4> </div>
-        <div class="col-md-4">Buscar</div>
+        <div class="col-md-4">&nbsp;</div>
 
         </div>
                 <hr>
