@@ -52,8 +52,8 @@ $(function() {
 	var scopes = 'public_profile,user_hometown,email';
 	var btn_login = ' <a id="login"><div class="facebook_btn"><span style="color:#3d5a96; font-size: 22px;"><i class="fa fa-facebook-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Iniciar Sesión con Facebook </div></a>';
     var div_session = "<div id='facebook-session' class='row' style='padding: 1px 1px 1px 1px;'>"+
-					 "<div class='col-md-8'><img id='img_usr' src='http://graph.facebook.com/<?php echo $fb_id; ?>/picture?type=large' class='img-circle' width='50'> &nbsp; </div>"+
-                             "<div class='col-md-4'><?php echo $fb_name; ?><br><a type='button'  class='btn btn-outline btn-danger btn-xs' href='#' id='logout'>Cerrar Sesi&oacute;n</a></div>"+
+					 "<div class='col-md-10'><img id='img_usr' src='http://graph.facebook.com/<?php echo $fb_id; ?>/picture?type=large' class='img-circle' width='50'><br>"+
+                             "<?php echo $fb_name; ?><br><a type='button'  class='btn btn-outline btn-danger btn-xs' href='#' id='logout'>Cerrar Sesi&oacute;n</a></div>"+
                          "</div>";
 
 

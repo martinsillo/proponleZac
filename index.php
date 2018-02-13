@@ -26,24 +26,24 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     <link rel="shortcut icon" type="image/x-icon" href="img/icon.ico" />
     <link rel="stylesheet" href="css/bootstrap.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
-    <link rel="stylesheet" href="css/proponle.css">
+    <link rel="stylesheet" href="css/proponle.css?v1.0.2">
     <link rel="stylesheet" href="css/style.css">
      <link rel="stylesheet" href="css/font-awesome.css">
 </head>
-    <body>
+<body>
         <div class="barra_top">
-            Transparencia &nbsp;|&nbsp; Datos Abiertos &nbsp;|&nbsp; Foros Locales &nbsp;|&nbsp; <i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;&nbsp;<i class="fa fa-twitter-square" aria-hidden="true"></i>&nbsp;
+            &nbsp;
         </div>
-        <div class="contenido" style="padding-left: 5%; padding-right: 5%;">
-            <div class="row" style="padding: 1px 1px 1px 1px;">
-                <div class="col-md-8">
-                    <img src="img/logo2.png"  class="img-responsive" style="margin: 0 auto;">
+<div class="contenido" style="padding-left: 1%; padding-right: 1%; width:100%">
+ <div class="row" style="padding: 1px 1px 1px 1px;">
+<div class="col-sm-8">
+                    <img src="img/Proponle_A_Zacatecas.png" width="150">
                 </div>
-                <div class="col-md-4" style="text-align:right; padding-right: 20%">
-                  <a id="login"><div class="facebook_btn"><span style="color:#3d5a96; font-size: 22px;"><i class="fa fa-facebook-square" aria-hidden="true"></i></span>&nbsp;&nbsp;Iniciar Sesión con Facebook </div></a>
+                <div class="col-sm-4" style="text-align:right;">
+                  <a id="login" class="btn btn-outline btn-info"><i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;Iniciar Sesión con Facebook </a>
 <!-- loginform -->
-                </div>
-            </div>
+</div>
+</div>
 <!-- Barra de Navegación -->
             <br>
             </div>
@@ -51,25 +51,21 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
   <a href="#" class="active">Inicio</a>
   <a href="debates.php">Debates</a>
   <a href="prpuestas.php">Propuestas</a>
-  <a href="sondeos.php">Sondeos/Votaciones</a>
-  <a href="documentos.php">Documentos</a>
-  <a href="informacion.php">Más Información</a>
+
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
-    <div style="text-align: center; padding-top: 25px; padding-left: 10%; padding-right: 10%;">
+    <div style="text-align: center; padding-top: 25px; padding-left: 10%; padding-right: 10%;" class="parallax_main">
         <br>
         <button type="button" class="btn btn-danger2">Haz tu Propuesta Ciudadana</button>
         <br>
-        <h2>¿TIENES UNA IDEA PARA CAMBIAR ZACATECAS?</h2>
-        <h4>El Gobierno del Estado llevará a cabo tu propuesta si consigues que pase a votación ciudadana. Lorem Ipsum Dolor Est.</h4>
+        <h2><span style="color:#fff;">¿TIENES UNA IDEA PARA CAMBIAR ZACATECAS?</span></h2>
+        <h4><span style="color:#fff;">El Gobierno del Estado llevará a cabo tu propuesta si consigues que pase a votación ciudadana. Lorem Ipsum Dolor Est.</span></h4>
         <br>
-        <button type="button" class="btn btn-outline btn-primary btn-lg" >Crea una Propuesta</button>
+        <button type="button" class="btn  btn-primary btn-lg" >Crea una Propuesta</button>
     </div>
 <hr>
 <br>
-        <br><br>
-     <?php if($session_active){echo "sesion activa"; }else{ echo "Sesion inactiva 0 ";} ?>
-        <?php var_dump($session_active); ?>
+
 
    <div class="pie_pag">
       <div class="container">
