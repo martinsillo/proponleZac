@@ -2,7 +2,7 @@
 date_default_timezone_set('America/Mexico_City');
 require_once('php/seguridad.php');
 require_once('php/conexion.php');
-require_once('php/debates.php');
+require_once('php/propuestas.php');
 $session_active = false;
 if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     if($_SESSION['active'] == true AND
@@ -63,14 +63,14 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
                         <div class="row">
                             <div class="col-md-8"><h5><a href="<?php
 
-                               echo "?cerrados=0"; ?>"> Debates Actuales</a> | <a href="<?php
+                               echo "?cerrados=0"; ?>"> Propuestas Actuales</a> | <a href="<?php
 
-                               echo "?cerrados=1"; ?>"> Debates Cerrados</a></h5> </div>
+                               echo "?cerrados=1"; ?>"> Propuestas Finalizadas</a></h5> </div>
         <div class="col-md-4">&nbsp;</div>
         </div>
                 <hr>
                 <?php
-                    $debates = new debates();
+                    $propuestas = new propuestas();
                     if(isset($_GET['pagina'])){$rango =$_GET['pagina']; } else {$pagina=1;}
 
                     if(isset($_GET['cerrados'])){ $cerrado = $_GET['cerrados']; } else { $cerrado = 0; }
@@ -80,12 +80,12 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
                     if(isset($_GET['fecha2'])){$fecha2 =$_GET['fecha2']; } else {$fecha2 = 'null';}
 
 
-                    $info = $debates->listar($pagina,$cerrado,$texto,$fecha1,$fecha2,$session_active);
+                    $info = $propuestas->listar($pagina,$cerrado,$texto,$fecha1,$fecha2,$session_active);
                     print($info);
                 ?>
                 <br>
                   <?php
-                       $registrosDeb = $debates->contarDebates();
+                       $registrosDeb = $propuestas->contarPropuestas();
 
                         if($registrosDeb < 11 ){
                             $loop = 1;
@@ -110,12 +110,12 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
             </div>
             <div class="col-md-4" style="border-left:solid 1px #dfe2e2;">
 
-               <?php if($session_active) {?> <button type="button" class="btn btn-primary btn-outline" onclick="nuevo_debate();">Empieza un debate</button><br><?php } ?>
+               <?php if($session_active) {?> <button type="button" class="btn btn-danger btn-outline" onclick="nuevo_debate();">Genera tu propuesta</button><br><?php } ?>
                 <br>
-                <button type="button" class="btn btn-info btn-outline">Ayuda sobre debates</button>
+                <button type="button" class="btn btn-info btn-outline">Ayuda sobre las propuestas</button>
                 <hr>
                 <strong>Tendencias</strong><br>
-                <?php echo $debates->etiqeutasMasVisitadas(); ?>
+                <?php echo $propuestas->categoriasMasVisitadas(); ?>
                 <hr>
             </div>
         </div>
@@ -192,7 +192,7 @@ Zacatecas, Zac.<br>
 
         function nuevo_debate(){
             $.ajax({
-                url: "views/nuevoDebate.html",
+                url: "views/nuevaPropuesta.html",
                 context: document.body
                 }).done(function(msg) {
                 document.getElementById("myModal").innerHTML = msg;
@@ -208,7 +208,7 @@ Zacatecas, Zac.<br>
         function votar(d,v){
                $.ajax({
                 method: "POST",
-                url: "php/debates.php",
+                url: "php/propuesta.php",
                 data: { accion: 'votar', debate: d, voto: v  }
                 }).done(function(msg) {
                    console.log(msg);

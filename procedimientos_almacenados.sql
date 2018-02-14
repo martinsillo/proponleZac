@@ -201,3 +201,107 @@ inner join usuarios u on (c.id_usuario = u.idUsuario)
 where c.id_debate = d and c.validado=1 order by c.fecha ASC;
 end $$
 delimiter ;
+
+
+USE proponleZac;
+
+DELIMITER $$
+CREATE PROCEDURE propuestasList (IN b INT, IN e INT, IN c INT, IN t varchar(128), IN f1 datetime, in f2 datetime)
+BEGIN
+	-- evitamos nulos para que el if pueda leer las variables
+	IF t IS NULL THEN SET @texto = " "; ELSE SET @texto = t;  END IF;
+    IF f1 IS NULL THEN SET @fecha1 = " "; ELSE SET @fecha1 = f1;  END IF;
+    IF f2 IS NULL THEN SET @fecha2 = " "; ELSE SET @fecha2 = f2;  END IF;
+    -- generamos la consulta necesaria
+    IF( @texto = " " and @fecha1 = " ") THEN
+			SELECT
+			p.idPropuesta,
+			p.titulo,
+			(select count(*) FROM comentariosPropuestas WHERE idPropuesta = p.idPropuesta) as comentarios,
+			u.nombre,
+			p.fecha,
+			p.introduccion,
+ p.apoyos_necesarios,
+ p.apoyos_recibidos
+			FROM  propuestas p
+			inner join usuarios u on (p.id_usuario = u.idUsuario)
+			where p.validado = 1 AND p.cerrado = c order by p.fecha DESC
+			LIMIT b,e;
+
+    ELSEIF (@texto !=  " " AND @fecha1 = " ")  then
+        	SELECT
+			p.idPropuesta,
+			p.titulo,
+			(select count(*) FROM comentariosPropuestas WHERE idPropuesta = p.idPropuesta) as comentarios,
+			u.nombre,
+			p.fecha,
+			p.introduccion,
+ p.apoyos_necesarios,
+ p.apoyos_recibidos
+			FROM  propuestas p
+			inner join usuarios u on (p.id_usuario = u.idUsuario)
+			where p.validado = 1 AND p.cerrado = c AND titulo LIKE concat("%",@texto,"%") order by p.fecha DESC
+			LIMIT b,e;
+
+
+    ELSEIF (@texto != " " AND @fecha1 !=  " ") THEN
+
+				SELECT
+			p.idPropuesta,
+			p.titulo,
+			(select count(*) FROM comentariosPropuestas WHERE idPropuesta = p.idPropuesta) as comentarios,
+			u.nombre,
+			p.fecha,
+			p.introduccion,
+ p.apoyos_necesarios,
+ p.apoyos_recibidos
+			FROM  propuestas p
+			inner join usuarios u on (p.id_usuario = u.idUsuario)
+			where p.validado = 1 AND p.cerrado = c AND titulo LIKE concat("%",@texto,"%") AND (p.fecha between @fecha1 and @fecha2 )  order by p.fecha DESC
+			LIMIT b,e;
+
+
+
+
+    ELSEIF (c= 1 AND @texto = " " AND @fecha1 != " ") THEN
+
+	SELECT
+			p.idPropuesta,
+			p.titulo,
+			(select count(*) FROM comentariosPropuestas WHERE idPropuesta = p.idPropuesta) as comentarios,
+			u.nombre,
+			p.fecha,
+			p.introduccion,
+ p.apoyos_necesarios,
+ p.apoyos_recibidos
+			FROM  propuestas p
+			inner join usuarios u on (p.id_usuario = u.idUsuario)
+			where p.validado = 1 AND p.cerrado = c  AND (p.fecha between @fecha1 and @fecha2 )  order by p.fecha DESC
+			LIMIT b,e;
+
+    END IF;
+
+END $$
+DELIMITER ;
+
+delimiter $$
+create procedure registrosPropuestas()
+begin
+	select count(*) from  propuestas where validado = 1;
+end $$
+delimiter ;
+
+
+delimiter $$
+create procedure categoriasVisitadas()
+begin
+    select
+    count(ep.id_etiqueta),
+    e.etiqueta
+    from etiquetaPropuesta ep
+    inner join etiquetas e on (ep.id_etiqueta = e.id_etiqueta)
+    group by ep.id_etiqueta
+    LIMIT 7
+    ;
+end $$
+delimiter ;

@@ -178,3 +178,29 @@ CREATE TABLE `votosComentario` (
   `voto` tinyint(4) NOT NULL,
   PRIMARY KEY (`idvotosComentario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `etiquetaPropuesta` (
+  `id_etiqueta` INT NOT NULL,
+  `idPropuesta` BIGINT NOT NULL
+);
+
+
+CREATE TABLE `propuestas` (
+  `idPropuesta` bigint(20) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(254) NOT NULL,
+  `id_usuario` bigint(20) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `codigo_propuesta` varchar(21) NOT NULL,
+  `introduccion` text NOT NULL,
+  `contenido` text NOT NULL,
+  `apoyos_necesarios` int(11) NOT NULL DEFAULT '1',
+  `apoyos_recibidos` int(11) NOT NULL DEFAULT '0',
+  `validado` tinyint(4) NOT NULL DEFAULT '1',
+  `cerrado` varchar(45) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idPropuesta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
