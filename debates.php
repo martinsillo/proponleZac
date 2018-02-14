@@ -45,7 +45,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
   <div class="topnav" id="myTopnav">
   <a href="index.php">Inicio</a>
   <a href="#" class="activo"><span style="color:#f00;">Debates</span></a>
-  <a href="prpuestas.php">Propuestas</a>
+  <a href="propuestas.php">Propuestas</a>
    <a href="http://avanzamostodos.zacagtecas.gob.mx" target="_blank">Presupuesto Participativo</a>
 
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
