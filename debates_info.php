@@ -62,7 +62,7 @@ unset($conexion);
 <div class="col-sm-10" style="padding-top:20px;">
   <div class="topnav" id="myTopnav">
   <a href="index.php">Inicio</a>
-  <a href="#" class="activo"><span style="color:#f00;">Debates</span></a>
+  <a href="debates.php" class="activo"><span style="color:#f00;">Debates</span></a>
   <a href="prpuestas.php">Propuestas</a>
    <a href="http://avanzamostodos.zacagtecas.gob.mx" target="_blank">Presupuesto Participativo</a>
 
@@ -72,16 +72,16 @@ unset($conexion);
     </div>
 </div>
     <div class="titulo_pagina">
-        <h4>Debates Ciudadanos</h4>
+        <h4>Debates Ciudadanos - <small>Informaci&oacute;n del Debate</small></h4>
     </div>
     <div style="padding-top: 15px; padding-left: 10%; padding-right: 10%; padding-bottom:1%;">
 
         <div class="row">
             <div class="col-md-8">
 
-<small><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver</small>
+<small><a href="debates.php"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver</a></small>
                 <h3><?php echo $Res[0]; ?></h3>
-                <span class="L-circle">L</span> <?php echo $Res[1]; ?> • <?php $fecha = date_create($Res[2]); echo date_format($fecha, 'd-m-Y'); ?>  • comentarios
+                <span class="L-circle">L</span> <?php echo $Res[1]; ?> • <?php $fecha = date_create($Res[2]); echo date_format($fecha, 'd-m-Y'); ?>
                 <hr>
                 <h4>Introducci&oacute;n</h4>
                 <p><?php echo $Res[3]; ?></p>
@@ -144,26 +144,35 @@ nfo estadisitca debate
                          $letter = strtoupper(substr($ResComent[1],0,1));
                          echo '<span class="'.$letter.'-circle">'.$letter.'</span> '.$ResComent[1].' • '.$fechaC.'<br><br>';
                          echo '<p>'.$ResComent[3].'</p>';
-                         echo '<div class="row" style="padding:3px 3px 3px 3px; border-top:solid 1px #ccc; border-bottom:solid 1px #ccc;">';
+                         echo '<div class="row" style="padding:3px 3px 3px 3px; border-top:solid 1px #ccc; border-bottom:solid 1px #ccc; background-color:#e3e5e8;">';
                          echo '<div class="col-sm-8">'.$responder;
-                         echo "<br>";
+                         echo "<br><br>";
                           $queryRespuestas = "select u.nombre,r.fecha,r.respuesta from respuestasComentarios r inner join usuarios u on(u.idUsuario = r.id_usuario) WHERE r.id_comentario = ".$ResComent[0]." and r.id_debate = ".$_GET['debateId']." and r.validado = 1 order by fecha ASC ";
                           $conexion = $conn->conectar(3);
                           $ExRespuestas = $conexion->query($queryRespuestas) or die ($conexion->error);
+
                           while($ResRespuestas = $ExRespuestas->fetch_array(MYSQLI_NUM)){
-                            echo "<div class='respuestas'>";
+                            echo "<div class='respuestas' style=' font-style: oblique; font-size:12px; padding-left:5%;'>";
                                $fechaR = date_create($ResRespuestas[1]);
                                 $fechaR = date_format($fechaR, 'd/m/Y H:i:s');
                                $letter2 = strtoupper(substr($ResRespuestas[0],0,1));
-                         echo '<span class="'.$letter2.'-circle">'.$letter2.'</span> '.$ResRespuestas[0].' • '.$fechaR.'<br><br>';
-                               echo '<p>'.$ResRespuestas[2].'</p>';
+                         echo '<span class="'.$letter2.'-circle">'.$letter2.'</span> '.$ResRespuestas[0].' • '.$fechaR.'<br>';
+                               echo '<p style="padding-left:10%;">'.$ResRespuestas[2].'</p>';
                             echo '</div>';
                           }
                           $ExRespuestas->free_result();
                           $conexion->close();
+                          /*$conexion = $conn->conectar(3);
+                          $consultaVotos = "SELECT (SELECT count(*) FROM votosComentario WHERE voto=1 and idComentario = ".$ResComent[0]." ) as aFavor, (SELECT count(*) FROM votosComentario WHERE voto=2 and idComentario = ".$ResComent[0].") as enContra";
+                          $ExQueryVotos  = $conexion->query($consultaVotos) or die ($conexion->error);
+                          $ResVotos = $ExQueryVotos->fetch_array(MYSQLI_NUM);
+                          $ExQueryVotos->free_result();
+                          unset($ExQueryVotos);
+                          $conexion->close();
+                          $sumaVotos = $ResVotos[0] + $ResVotos[1];
 
-
-                         echo '</div><div class="col-sm-4"><small>200 Votos | <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 100  •  <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 100</small></div></div><br><br>';
+                         echo '</div><div class="col-sm-4"><small>'.$sumaVotos.' Votos | <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> '.$ResVotos[0].'  •  <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> '.$ResVotos[1].'</small></div></div><br><br>';*/
+                            echo '</div><div class="col-sm-4"><small>&nbsp;</small></div></div><br> ';
                         }
 
                   }

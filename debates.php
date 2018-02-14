@@ -54,20 +54,19 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     </div>
 </div>
     <div class="titulo_pagina">
-        <h3>Debates Ciudadanos</h3>
+        <h4>Debates Ciudadanos</h4>
     </div>
     <div style="padding-top: 15px; padding-left: 10%; padding-right: 10%; padding-bottom:1%;">
 
         <div class="row">
             <div class="col-md-8">
                         <div class="row">
-                            <div class="col-md-8"><h4><a href="<?php
+                            <div class="col-md-8"><h5><a href="<?php
 
                                echo "?cerrados=0"; ?>"> Debates Actuales</a> | <a href="<?php
 
-                               echo "?cerrados=1"; ?>"> Debates Cerrados</a></h4> </div>
+                               echo "?cerrados=1"; ?>"> Debates Cerrados</a></h5> </div>
         <div class="col-md-4">&nbsp;</div>
-
         </div>
                 <hr>
                 <?php

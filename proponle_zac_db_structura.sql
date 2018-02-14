@@ -170,3 +170,11 @@ ADD CONSTRAINT `usuario_comentario`
   REFERENCES `proponleZac`.`usuarios` (`idUsuario`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+CREATE TABLE `votosComentario` (
+  `idvotosComentario` bigint(20) NOT NULL AUTO_INCREMENT,
+  `idComentario` bigint(20) NOT NULL,
+  `idUsuario` bigint(20) NOT NULL,
+  `voto` tinyint(4) NOT NULL,
+  PRIMARY KEY (`idvotosComentario`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
