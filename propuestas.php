@@ -190,7 +190,7 @@ Zacatecas, Zac.<br>
     <?php if($session_active){ ?>
     <script>
 
-        function nuevo_debate(){
+        function nueva_propuesta(){
             $.ajax({
                 url: "views/nuevaPropuesta.html",
                 context: document.body
@@ -205,11 +205,12 @@ Zacatecas, Zac.<br>
             $("#myModal").modal();
         }
 
-        function votar(d,v){
+
+        function votar(p){
                $.ajax({
                 method: "POST",
-                url: "php/propuesta.php",
-                data: { accion: 'votar', debate: d, voto: v  }
+                url: "php/propuestas.php",
+                data: { accion: 'votar', propuesta: p }
                 }).done(function(msg) {
                    console.log(msg);
                     if(msg === 'success'){

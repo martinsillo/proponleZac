@@ -16,4 +16,5 @@ GRANT EXECUTE ON PROCEDURE proponleZac.comentarios TO 'proponleZacConsulta'@'loc
 GRANT EXECUTE ON PROCEDURE proponleZac.propuestasList TO 'proponleZacConsulta'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.registrosPropuestas TO 'proponleZacConsulta'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.categoriasVisitadas TO 'proponleZacConsulta'@'localhost';
+GRANT EXECUTE ON PROCEDURE proponleZac.votoPropuesta TO 'proponleZacUsr'@'localhost';
 FLUSH PRIVILEGES;

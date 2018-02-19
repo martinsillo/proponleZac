@@ -34,13 +34,51 @@ class propuestas{
             $fecha =  substr($res[4],0,10);
             $etiquetas = $this->etiquetar($res[0]);
             $nombre = explode(" ",$res[3]);
-            $btns_votos = $this->botonesVotos( $res[6], $res[7],$s,$res[0]);
+            $apoyos_necesarios = number_format ( $res[6], 0 , "." ,  "," );
+            $apoyos_recibidos =  number_format ( $res[7], 0 , "." ,  "," );
+            $porcentaje_total = ($apoyos_recibidos/$apoyos_necesarios) * 100;
+            $avance_barra = round($porcentaje_total);
+            $porcentaje_total = number_format($porcentaje_total,2,".", ",");
+
+            if($avance_barra > 90){$color_barra =  "progress-bar-success";}
+            if($avance_barra > 40 && $avance_barra < 90 ){$color_barra =  "progress-bar-warning";}
+            if($avance_barra >= 0 && $avance_barra < 40 ){$color_barra =  "progress-bar-danger";}
+
+            $conexion = $c->conectar(3);
+            $votoUsuarioSql = "SELECT COUNT(*) FROM votosPropuestas WHERE idUsuario = ".$_SESSION['user_id']." AND idPropuesta = ".$res[0];
+            $ExQueryVotos = $conexion->query($votoUsuarioSql) or die ($conexion->error);
+            $resVotos = $ExQueryVotos->fetch_array();
+            $votoUsr = $resVotos[0];
+            $ExQueryVotos -> free_result();
+            $conexion->close();
+            unset($ExQueryVotos);
+            unset($resVotos);
+
+            if($votoUsr == 0){
+                $btn_votar = '<button class="btn btn-sm btn-outline btn-warning" onclick="votar('.$res[0].')">&nbsp;&nbsp;Apoyar&nbsp;&nbsp;</button>';
+            }else{
+                $btn_votar = '<button class="btn btn-sm btn-disabled">&nbsp;&nbsp;Ya has votado&nbsp;&nbsp;</button>';
+            }
+
+
             $contenido .= '<div class="box_debate">
                             <div class="row">
                             <div class="col-md-9">
-                            <h3 style="color:#333;"> <a href="debates_info.php?debateId='.$res[0].'"><strong>'.$res[1].'</strong></a> </h3>
+                            <h3 style="color:#333;"> <a href="propuestas_info.php?propuestaId='.$res[0].'"><strong>'.$res[1].'</strong></a> </h3>
                             <p>
-                            <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;'.$res[2].'&nbsp;Comentario(s) &nbsp;•&nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; '.$fecha.' &nbsp;•&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;'. $nombre[0]." ".$nombre[1].'<p>'. $res[5].' </p>'.$etiquetas.'</div><div class="col-md-3" style="border-left: solid 1px #dfe2e2;">'.$btns_votos;
+                            <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;'.$res[2].'&nbsp;Comentario(s) &nbsp;•&nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; '.$fecha.' &nbsp;•&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;'. $nombre[0]." ".$nombre[1].'<p>'. $res[5].' </p>'.$etiquetas.'</div><div class="col-md-3" style="border-left: solid 1px #dfe2e2;">
+                              <div class="m">
+                    <div class="progress m-t-xs full progress-striped active">
+                        <div style="width: '.$avance_barra.'%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="'.$avance_barra.'" role="progressbar" class=" progress-bar '.$color_barra.'">
+                            '.$porcentaje_total.'%
+                        </div>
+                    </div>
+                </div>
+                <strong> '.$apoyos_recibidos.' Apoyo(s) </strong><br>'.
+                $apoyos_necesarios.' apoyos necesarios<br><br>
+                        <div style="text-align:center">
+                           '.$btn_votar.'</div>
+                            </div></div></div>';
 
                            ;
             }
@@ -130,55 +168,12 @@ class propuestas{
             return $registros[0];
         }
     }
-    function botonesVotos($v1,$v2,$s,$d){
-        $total_votos = $v1 + $v2;
-            $total_votos_reales = $v1 + $v2;
-            if($total_votos == 0){ $total_votos = 1;}
-                $r1 = ($v1/$total_votos)*100;
-                $r1 = number_format($r1,2,'.','');
-                $r2 = ($v2/$total_votos)*100;
-                $r2 = number_format($r2,2,'.','');
-                if($s){
-
-                     $c = new conexion();
-                     $conexion = $c->conectar(3);
-                     $ExQuery1 = $conexion->query('call buscarVoto('.$_SESSION['user_id'].','.$d.')') or die ($conexion->error);
-                     $ResQuery = $ExQuery1->fetch_array();
-                     $ExQuery1->free_result();
-                     $conexion->close();
-                     if($ResQuery[0] == 0){
-                           $resultado = ' <a class="btn btn-success btn-outline" href="javascript:votar('.$d.',1)"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> &nbsp;'.$r1.'%<br><br><a class="btn btn-danger btn-outline" href="javascript:votar('.$d.',2)"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> &nbsp; '.$r2.'%<br><br><strong>'.$total_votos_reales.'&nbsp;Votos</strong></div></div></div><br>';
-                     }else{
-                         if($ResQuery[0] == 1){$resultado = ' <a class="btn btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> &nbsp;'.$r1.'%<br><br><a class="btn btn-default"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> &nbsp; '.$r2.'%<br><br><strong>'.$total_votos_reales.'&nbsp;Votos</strong></div></div></div><br>';}
-
-                         if($ResQuery[0] == 2){$resultado = ' <a class="btn btn-default "><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> &nbsp;'.$r1.'%<br><br><a class="btn btn-danger"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> &nbsp; '.$r2.'%<br><br><strong>'.$total_votos_reales.'&nbsp;Votos</strong></div></div></div><br>';}
-                     }
-
-
-
-
-
-
-
-
-                }else{
-                                     $resultado = ' <a class="btn btn-default"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> &nbsp;'.$r1.'%<br><br><a class="btn btn-default"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> &nbsp; '.$r2.'%<br><br><strong>'.$total_votos_reales.'&nbsp;Votos</strong></div></div></div><br>';
-
-
-                }
-
-
-
-        return $resultado;
-
-
-    }
-    function votarDebate($d){
+    function votarPropuesta($d){
         session_start();
         $session_active = false;
         if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
         if($_SESSION['active'] == true AND
-            $_SESSION['active_key'] = md5(sha1('ajdhakdjhakjshdkwdkahqwrñ43p9tw{uwaERT#$%VWAWEFWAwE#!$C"QX}'))){
+            $_SESSION['active_key'] == md5(sha1('ajdhakdjhakjshdkwdkahqwrñ43p9tw{uwaERT#$%VWAWEFWAwE#!$C"QX}'))){
             $session_active = true;
         }
         }
@@ -186,7 +181,7 @@ class propuestas{
         require_once('conexion.php');
         $c = new conexion();
         $conexion = $c->conectar(2);
-        $conexion->query("CALL registrarVoto(".$_SESSION['user_id'].",".$d['debate'].",".$d['voto'].")") or die ($conexion->error);
+        $conexion->query("CALL votoPropuesta(".$d['propuesta'].",".$_SESSION['user_id'].")") or die ($conexion->error);
         $conexion->close();
         return "success";
     }
@@ -222,13 +217,13 @@ class propuestas{
 }
 
 if(isset($_POST['accion'])){
-    $d = new debates();
+    $d = new propuestas();
  switch($_POST['accion']) {
      case "agregar":
         echo $d->crear($_POST);
     break;
     case "votar":
-        echo $d->votarDebate($_POST);
+        echo $d->votarPropuesta($_POST);
     break;
     case "comentar":
         echo $d->comentarDebate($_POST['debate'],$_POST['usuario'],$_POST['comentario']);

@@ -305,3 +305,13 @@ begin
     ;
 end $$
 delimiter ;
+
+delimiter $$
+create procedure votoPropuesta(in p int, in u int)
+begin
+ set @apoyos =   (select apoyos_recibidos from propuestas  where idPropuesta = p);
+ set @suma = @apoyos + 1;
+ update propuestas set apoyos_recibidos = @suma where idPropuesta = p;
+ insert into votosPropuestas (idUsuario,idPropuesta) values (u,p);
+ end $$
+ delimiter ;

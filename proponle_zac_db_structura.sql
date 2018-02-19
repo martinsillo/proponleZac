@@ -181,10 +181,6 @@ CREATE TABLE `votosComentario` (
 
 
 
-CREATE TABLE `etiquetaPropuesta` (
-  `id_etiqueta` INT NOT NULL,
-  `idPropuesta` BIGINT NOT NULL
-);
 
 
 CREATE TABLE `propuestas` (
@@ -204,3 +200,11 @@ CREATE TABLE `propuestas` (
 
 
 
+CREATE TABLE `etiquetaPropuesta` (
+  `id_etiqueta` INT NOT NULL,
+  `idPropuesta` BIGINT NOT NULL
+);
+
+CREATE TABLE `proponleZac`.`votosPropuestas` (
+  `idUsuario` INT NOT NULL,
+  `idPropuesta` INT NOT NULL);
