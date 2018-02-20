@@ -26,7 +26,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     <link rel="shortcut icon" type="image/x-icon" href="img/icon.ico" />
     <link rel="stylesheet" href="css/bootstrap.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
-    <link rel="stylesheet" href="css/proponle.css?v1.1.1">
+    <link rel="stylesheet" href="css/proponle.css?v1.1.2">
     <link rel="stylesheet" href="css/style.css">
      <link rel="stylesheet" href="css/font-awesome.css">
 </head>
@@ -54,13 +54,19 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     </div>
 </div>
     <div style="text-align: center; padding-top: 25px; padding-left: 10%; padding-right: 10%;" class="parallax_main">
+     <video width="40%"  controls autoplay>
+      <source src="video/proponle.mp4" type="video/mp4">
+       Tu navegador no soporta reprodución de video.
+      </video>
+
+
         <br>
-        <button type="button" class="btn btn-danger2">Haz tu Propuesta Ciudadana</button>
+
         <br>
         <h2><span style="color:#fff;">¿TIENES UNA IDEA PARA CAMBIAR ZACATECAS?</span></h2>
         <h4><span style="color:#fff;">El Gobierno del Estado llevará a cabo tu propuesta si consigues que pase a votación ciudadana. Lorem Ipsum Dolor Est.</span></h4>
         <br>
-        <button type="button" class="btn  btn-primary btn-lg" >Crea una Propuesta</button>
+        <a  class="btn  btn-primary2 btn-lg" href="propuestas.php">Crea una Propuesta</a>
     </div>
 <hr>
 <br>

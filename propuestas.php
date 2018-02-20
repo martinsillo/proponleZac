@@ -110,7 +110,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
             </div>
             <div class="col-md-4" style="border-left:solid 1px #dfe2e2;">
 
-               <?php if($session_active) {?> <button type="button" class="btn btn-danger btn-outline" onclick="nuevo_debate();">Genera tu propuesta</button><br><?php } ?>
+               <?php if($session_active) {?> <button type="button" class="btn btn-danger btn-outline" onclick="nueva_propuesta();">Genera tu propuesta</button><br><?php } ?>
                 <br>
                 <button type="button" class="btn btn-info btn-outline">Ayuda sobre las propuestas</button>
                 <hr>
