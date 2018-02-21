@@ -79,7 +79,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
             <div class="col-md-3">
             <h4><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Información</h4>
                 <ul>
-                    <li><a href="politica_privacidad.html">Politica de Privacidad</a></li>
+                    <li><a href="http://coepla.zacatecas.gob.mx/wp-content/uploads/2017/02/Aviso%20de%20Privacidad%20integral%20COEPLA.pdf" target="_blank">Aviso de Privacidad</a></li>
                     <li>Condiciones de uso</li>
                     <li>Soporte Técnico</li>
                 </ul>
