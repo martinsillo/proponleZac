@@ -43,10 +43,10 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
    </div>
 <div class="col-sm-10" style="padding-top:20px;">
   <div class="topnav" id="myTopnav">
-  <a href="#" class="activo"><span style="color:#f00;">Inicio</span></a>
+  <a href="index.php">Inicio</a>
   <a href="debates.php">Debates</a>
   <a href="propuestas.php">Propuestas</a>
-   <a href="http://avanzamostodos.zacagtecas.gob.mx" target="_blank">Presupuesto Participativo</a>
+   <a href="http://avancemostodos.zacatecas.gob.mx/decidiendo" target="_blank">Presupuesto Participativo</a>
 
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
@@ -146,7 +146,12 @@ El Gobierno del Estado se reserva el derecho de revisar las presentes condicione
    <div class="pie_pag">
       <div class="container">
         <div class="row" style="padding: 9px 1px 5px 1px;">
-            <div class="col-md-3"><img src="img/logo_zacatecas.png" class="img-responsive"></div>
+            <div class="col-md-3"><img src="img/logo_zacatecas.png" class="img-responsive">
+            <hr>
+                <div align="center">
+                <a href="https://avancemostodos.zacatecas.gob.mx"> <img src="img/avancemos_xs.png"></a>
+                    </div>
+            </div>
             <div class="col-md-3">
             <h4><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Información</h4>
                 <ul>

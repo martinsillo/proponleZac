@@ -55,7 +55,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
 </div>
     <div style="text-align: center; padding-top: 25px; padding-left: 10%; padding-right: 10%;" class="parallax_main">
      <video width="40%"  controls autoplay>
-      <source src="video/proponle.mp4" type="video/mp4">
+      <source src="video/proponle_w.mp4" type="video/mp4">
        Tu navegador no soporta reprodución de video.
       </video>
 
@@ -64,9 +64,9 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
 
         <br>
         <h2><span style="color:#fff;">¿TIENES UNA IDEA PARA CAMBIAR ZACATECAS?</span></h2>
-        <h4><span style="color:#fff;">El Gobierno del Estado llevará a cabo tu propuesta si consigues que pase a votación ciudadana. Lorem Ipsum Dolor Est.</span></h4>
+        <h4><span style="color:#fff;">Inicia un debate para compartir puntos de vista con otras personas sobre los temas que te preocupan.<br>El espacio de debates ciudadanos está dirigido a que cualquier persona pueda exponer temas que le preocupan y sobre los que quiera compartir puntos de vista con otras personas, preferentemente relacionados con el Estado de Zacatecas.</span></h4>
         <br>
-        <a  class="btn  btn-primary2 btn-lg" href="propuestas.php">Crea una Propuesta</a>
+        <a  class="btn  btn-primary2 btn-lg" href="debates.php">Crea un Debate</a>
     </div>
 <hr>
 <br>
@@ -75,13 +75,24 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
    <div class="pie_pag">
       <div class="container">
         <div class="row" style="padding: 9px 1px 5px 1px;">
-            <div class="col-md-3"><img src="img/logo_zacatecas.png" class="img-responsive"></div>
+            <div class="col-md-3"><img src="img/logo_zacatecas.png" class="img-responsive">
+
+
+            <hr>
+                <div align="center">
+                <a href="https://avancemostodos.zacatecas.gob.mx"> <img src="img/avancemos_xs.png"></a>
+                    </div>
+
+
+
+            </div>
+
             <div class="col-md-3">
             <h4><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Información</h4>
                 <ul>
-                    <li><a href="http://coepla.zacatecas.gob.mx/wp-content/uploads/2017/02/Aviso%20de%20Privacidad%20integral%20COEPLA.pdf" target="_blank">Aviso de Privacidad</a></li>
-                    <li>Condiciones de uso</li>
-                    <li>Soporte Técnico</li>
+                    <li><a href="documentos/Aviso_de Privacidad_integral_COEPLA.pdf" target="_blank">Aviso de Privacidad</a></li>
+                    <li><a href="condiciones-de-uso.php">Condiciones de uso</a></li>
+
                 </ul>
             </div>
             <div class="col-md-3">
