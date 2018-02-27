@@ -112,7 +112,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
 
                <?php if($session_active) {?> <button type="button" class="btn btn-primary btn-outline" onclick="nuevo_debate();">Empieza un debate</button><br><?php } ?>
                 <br>
-                <button type="button" class="btn btn-info btn-outline">Ayuda sobre debates</button>
+                <a class="btn btn-info btn-outline" href="#ayudaDebates">Ayuda sobre debates</a>
                 <hr>
                 <strong>Tendencias</strong><br>
                 <?php echo $debates->etiqeutasMasVisitadas(); ?>
@@ -122,6 +122,19 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
 
 
 
+   </div>
+    <hr>
+    <div id="ayudaDebates" style="padding-left:10%; padding-right:10%; text-align:justify;">
+
+     <h4> Ayuda sobre los debates ciudadanos</h4>
+
+<p>Inicia un debate para compartir puntos de vista con otras personas sobre los temas que te preocupan en Zacatecas.<br>
+
+El espacio de debates ciudadanos está dirigido a que cualquier persona pueda exponer temas que le preocupan y sobre los que quiera compartir puntos de vista con otras personas, preferentemente relacionados con el Estado de Zacatecas.<br>
+
+Para abrir un debate es necesario iniciar Sesion en Proponle a Zacatecas utilizando tu cuenta de facebook. Los usuarios ya registrados también pueden comentar los debates abiertos y valorarlos con los botones de "Estoy de acuerdo" o "No estoy de acuerdo" que se encuentran en cada uno de ellos.<br>
+
+Ten en cuenta que un debate no activa ningún mecanismo de actuación concreto. Si quieres hacer una propuesta para la ciudad o plantear un proyecto de presupuestos participativos cuando se abra la convocatoria, ve a la sección correspondiente.</p>
     </div>
    <div class="pie_pag">
       <div class="container">
