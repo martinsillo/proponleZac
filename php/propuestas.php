@@ -16,7 +16,7 @@ class propuestas{
         unset($conexion);
 
         if($registros[0] == 0){
-            $contenido = '<div class="twitter_btn"><i class="fa fa-info-circle" aria-hidden="true"></i> Aún no se tienen Debates registrados, te inviatamos a participar creando un debate.</div>';
+            $contenido = '<div class="twitter_btn"><i class="fa fa-info-circle" aria-hidden="true"></i> Aún no se tienen propuestas registradass, te inviatamos a participar generando una propuesta.</div>';
         }else{
             $contenido ='';
             $conexion = $c->conectar(3);
@@ -45,7 +45,7 @@ class propuestas{
             if($avance_barra >= 0 && $avance_barra < 40 ){$color_barra =  "progress-bar-danger";}
 
             $conexion = $c->conectar(3);
-            $votoUsuarioSql = "SELECT COUNT(*) FROM votosPropuestas WHERE idUsuario = ".$_SESSION['user_id']." AND idPropuesta = ".$res[0];
+            $votoUsuarioSql = "SELECT COUNT(*) FROM votosPropuestas WHERE  idPropuesta = ".$res[0];
             $ExQueryVotos = $conexion->query($votoUsuarioSql) or die ($conexion->error);
             $resVotos = $ExQueryVotos->fetch_array();
             $votoUsr = $resVotos[0];
@@ -66,7 +66,7 @@ class propuestas{
                             <div class="col-md-9">
                             <h3 style="color:#333;"> <a href="propuestas_info.php?propuestaId='.$res[0].'"><strong>'.$res[1].'</strong></a> </h3>
                             <p>
-                            <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;'.$res[2].'&nbsp;Comentario(s) &nbsp;•&nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; '.$fecha.' &nbsp;•&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;'. $nombre[0]." ".$nombre[1].'<p>'. $res[5].' </p>'.$etiquetas.'</div><div class="col-md-3" style="border-left: solid 1px #dfe2e2;">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; '.$fecha.' &nbsp;•&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;'. $nombre[0]." ".$nombre[1].'<p>'. $res[5].' </p>'.$etiquetas.'</div><div class="col-md-3" style="border-left: solid 1px #dfe2e2;">
                               <div class="m">
                     <div class="progress m-t-xs full progress-striped active">
                         <div style="width: '.$avance_barra.'%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="'.$avance_barra.'" role="progressbar" class=" progress-bar '.$color_barra.'">
@@ -95,7 +95,7 @@ class propuestas{
         $titulo = str_replace("'","\'",$_POST['titulo']);
         $texto = str_replace("'","\'",$_POST['texto']);
         $intro = str_replace("'","\'",$_POST['introduccion']);
-        $Consulta = "CALL insertarDebate('".$titulo."',".$_SESSION['user_id'].",'".$fecha."','".$texto."','".$intro."')";
+        $Consulta = "CALL insertarPropuesta('".$titulo."',".$_SESSION['user_id'].",'".$fecha."','".$texto."','".$intro."')";
         $ExConsulta = $conexion->query($Consulta) or die($conexion->error);
         $res = $ExConsulta->fetch_array();
         $conexion->close();
@@ -114,43 +114,6 @@ class propuestas{
 
 
     }
-    function editar(){
-        return false;
-    }
-    function eliminar(){
-        return false;
-    }
-    function etiquetar($i){
-        $c = new conexion();
-        $conn = $c->conectar(3);
-        $queryTag = 'call tagsDebate('.$i.')';
-        $ExQueryTags = $conn->query($queryTag) or die ($conn->error);
-        $tags_info = '';
-        while($res = $ExQueryTags->fetch_array()){
-            $tags_info .= "<a href='#' class='btn btn-primary2'>".$res[0]."</a>&nbsp;";
-        }
-        $conn->close();
-        unset($conn);
-        unset($c);
-        return $tags_info;
-    }
-
-    function categoriasMasVisitadas(){
-        $c = new conexion();
-        $conn = $c->conectar(3);
-        $queryTag = 'call categoriasVisitadas()';
-        $ExQueryTags = $conn->query($queryTag) or die ($conn->error);
-        $tags_info = '';
-        while($res = $ExQueryTags->fetch_array()){
-            $tags_info .= "<a href='#' class='btn btn-primary2'>".$res[1]."</a>&nbsp;";
-        }
-        $conn->close();
-        unset($conn);
-        unset($c);
-        return $tags_info;
-
-    }
-
     function contarPropuestas(){
         $c = new conexion();
         $conexion = $c->conectar(3);
@@ -185,35 +148,7 @@ class propuestas{
         $conexion->close();
         return "success";
     }
-    function comentarDebate($d,$u,$coment){
-        date_default_timezone_set('America/Mexico_City');
-        session_start();
-        require_once('conexion.php');
-        $c = new conexion();
-        $conexion = $c->conectar(2);
-        $fecha = date('Y-m-d H:i:s');
-        $tQuery = 'INSERT INTO comentarios (id_debate,id_usuario,fecha,comentario) VALUES ('.$d.','.$u.',"'.$fecha.'","'.$coment.'")';
-        $conexion->query($tQuery);
-        $conexion->close() or die ($conexion->error);
-        unset($conexion);
-        unset($c);
-        return "success";
-    }
-    function responderComentario($d,$coment,$u,$r){
-        date_default_timezone_set('America/Mexico_City');
-        session_start();
-        require_once('conexion.php');
-        $c = new conexion();
-        $conexion = $c->conectar(2);
-        $fecha = date('Y-m-d H:i:s');
-        $tQuery = 'INSERT INTO respuestasComentarios (id_debate,id_comentario,id_usuario,fecha,respuesta) VALUES ('.$d.','.$coment.','.$u.',"'.$fecha.'","'.$r.'")';
-        $conexion->query($tQuery);
-        $conexion->close() or die ($conexion->error);
-        unset($conexion);
-        unset($c);
-        return "success";
 
-    }
 }
 
 if(isset($_POST['accion'])){
@@ -224,12 +159,6 @@ if(isset($_POST['accion'])){
     break;
     case "votar":
         echo $d->votarPropuesta($_POST);
-    break;
-    case "comentar":
-        echo $d->comentarDebate($_POST['debate'],$_POST['usuario'],$_POST['comentario']);
-    break;
-     case "respuesta":
-         echo $d->responderComentario($_POST['debate'],$_POST['comentario'],$_POST['usuario'],$_POST['respuesta']);
     break;
  }
 }

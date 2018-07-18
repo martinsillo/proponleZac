@@ -52,7 +52,7 @@ $(function() {
 	var scopes = 'public_profile,user_hometown,email';
 	var btn_login = ' <span id="init_sesion">Iniciar sesión:</span> <a id="login" class="btn btn-outline btn-primary btn-xs"><i class="fa fa-facebook" aria-hidden="true"></i></a>';
     var div_session = "<div id='facebook-session' style='padding: 1px 1px 1px 1px;'>"+
-					 "<img id='img_usr' src='http://graph.facebook.com/<?php echo $fb_id; ?>/picture?type=large' class='img-circle' width='35'>&nbsp;"+
+					 "<img id='img_usr' src='https://graph.facebook.com/<?php echo $fb_id; ?>/picture?type=large' class='img-circle' width='35'>&nbsp;"+
                              "<?php echo $fb_name; ?>&nbsp;<a type='button'  class='btn btn-outline btn-danger btn-xs' href='#' id='logout'>Cerrar Sesi&oacute;n</a></div>";
 
 
@@ -94,7 +94,7 @@ $(function() {
 	  		$('#login').after(div_session);
 	  		$('#login').remove();
 	  		//$('#facebook-session strong').text("Bienvenido: "+response.name);
-	  		//$('#facebook-session img').attr('src','http://graph.facebook.com/'+response.id+'/picture?type=large');
+	  		//$('#facebook-session img').attr('src','https://graph.facebook.com/'+response.id+'/picture?type=large');
 	  	});
   	}
 

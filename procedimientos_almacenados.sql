@@ -315,3 +315,15 @@ begin
  insert into votosPropuestas (idUsuario,idPropuesta) values (u,p);
  end $$
  delimiter ;
+
+
+
+ drop procedure insertarPropuesta;
+delimiter $$
+create procedure insertarPropuesta (in t varchar(254),in u bigint, in i text, in c text )
+begin
+	set @fechaHora =  concat(curdate()," ",curtime());
+    set @codProp = concat(curdate(),FLOOR(RAND()*(999-5+1)+5),curtime());
+    INSERT INTO propuestas (titulo,id_usuario,fecha,codigo_propuesta,introduccion,contenido,apoyos_necesarios,apoyos_recibidos) values (t,u,@fechaHora,@codProp,i,c, 1, 0);
+end $$
+delimiter ;

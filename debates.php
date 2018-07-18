@@ -18,7 +18,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Proponle a Zacatecas">
+    <meta name="description" content="Proponle a Zacatecas, espacio de debates y propuestas ciudadanas">
     <meta name="keywords" content="Zacatecas, Propuestas, Avanzamos, Avanzemos, Debate">
     <meta name="author" content="Gobierno del Estado de Zacatecas">
     <title>Proponle a Zacatecas</title>
@@ -39,14 +39,14 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
 <div class="menu">
 <div class="row" style="padding:1px 1px 1px 1px">
   <div class="col-sm-2">
-    <img src="img/Proponle_A_Zacatecas.png" width="150">
+    <img src="img/Proponle_A_Zacatecas.png" width="150" alt="Proponle a Zacatecas">
    </div>
 <div class="col-sm-10" style="padding-top:20px;">
   <div class="topnav" id="myTopnav">
   <a href="index.php">Inicio</a>
   <a href="#" class="activo"><span style="color:#f00;">Debates</span></a>
   <a href="propuestas.php">Propuestas</a>
-   <a href="http://avanzamostodos.zacagtecas.gob.mx" target="_blank">Presupuesto Participativo</a>
+   <a href="http://avanzamostodos.zacatecas.gob.mx" target="_blank">Presupuesto Participativo</a>
 
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
@@ -54,7 +54,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     </div>
 </div>
     <div class="titulo_pagina">
-        <h4>Debates Ciudadanos</h4>
+        <h3>Debates Ciudadanos</h3>
     </div>
     <div style="padding-top: 15px; padding-left: 10%; padding-right: 10%; padding-bottom:1%;">
 
@@ -72,15 +72,14 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
                 <?php
                     $debates = new debates();
                     if(isset($_GET['pagina'])){$rango =$_GET['pagina']; } else {$pagina=1;}
-
                     if(isset($_GET['cerrados'])){ $cerrado = $_GET['cerrados']; } else { $cerrado = 0; }
-
                     if(isset($_GET['texto'])){$texto =$_GET['texto']; } else {$texto='null';}
                     if(isset($_GET['fecha1'])){$fecha1 =$_GET['fecha1']; } else {$fecha1 = 'null';}
                     if(isset($_GET['fecha2'])){$fecha2 =$_GET['fecha2']; } else {$fecha2 = 'null';}
+                    if(isset($_GET['etiqueta'])){$etiqueta =$_GET['etiqueta']; } else {$etiqueta = 'null';}
 
 
-                    $info = $debates->listar($pagina,$cerrado,$texto,$fecha1,$fecha2,$session_active);
+                    $info = $debates->listar($pagina,$cerrado,$texto,$fecha1,$fecha2,$session_active,$etiqueta);
                     print($info);
                 ?>
                 <br>
@@ -139,7 +138,7 @@ Ten en cuenta que un debate no activa ningún mecanismo de actuación concreto. 
    <div class="pie_pag">
       <div class="container">
         <div class="row" style="padding: 9px 1px 5px 1px;">
-            <div class="col-md-3"><img src="img/logo_zacatecas.png" class="img-responsive"></div>
+            <div class="col-md-3"><img src="img/logo_zacatecas.png" class="img-responsive" alt="Gobierno del Estado de Zacatecas"></div>
             <div class="col-md-3">
             <h4><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Información</h4>
                 <ul>

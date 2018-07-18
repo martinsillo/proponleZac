@@ -28,6 +28,25 @@ function guardarDebate() {
     });
     return false;
 }
+
+function guardarPropuesta() {
+    'use strict';
+    $.ajax({
+        method: "POST",
+        url: "php/propuestas.php",
+        data: {
+            accion: 'agregar',
+            titulo: $('#titulo_propuesta').val(),
+            introduccion: $('#introduccion_propuesta').val(),
+            texto: $('#cuerpo_propuesta').val(),
+        }
+    }).done(function (msg) {
+        alert('Su propuesta ha sido enviada para su validacion, muchas gracias.');
+        $('#myModal').modal('hide');
+    });
+    return false;
+}
+
 function loginProponle(datos) {
     'use strict';
     $.ajax({

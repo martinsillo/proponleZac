@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors',1);
+
 date_default_timezone_set('America/Mexico_City');
 require_once('php/seguridad.php');
 require_once('php/conexion.php');
@@ -18,7 +21,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Proponle a Zacatecas">
+    <meta name="description" content="Proponle a Zacatecas, espacio de debates y propuestas ciudadanas">
     <meta name="keywords" content="Zacatecas, Propuestas, Avanzamos, Avanzemos, Debate">
     <meta name="author" content="Gobierno del Estado de Zacatecas">
     <title>Proponle a Zacatecas</title>
@@ -39,7 +42,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
 <div class="menu">
 <div class="row" style="padding:1px 1px 1px 1px">
   <div class="col-sm-2">
-    <img src="img/Proponle_A_Zacatecas.png" width="150">
+    <img src="img/Proponle_A_Zacatecas.png" width="150" alt="Proponle a Zacatecas">
    </div>
 <div class="col-sm-10" style="padding-top:20px;">
   <div class="topnav" id="myTopnav">
@@ -54,7 +57,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     </div>
 </div>
     <div class="titulo_pagina">
-        <h4>Propuestas Ciudadanas</h4>
+        <h3>Propuestas Ciudadanas</h3>
     </div>
     <div style="padding-top: 15px; padding-left: 10%; padding-right: 10%; padding-bottom:1%;">
 
@@ -126,7 +129,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
    <div class="pie_pag">
       <div class="container">
         <div class="row" style="padding: 9px 1px 5px 1px;">
-            <div class="col-md-3"><img src="img/logo_zacatecas.png" class="img-responsive"></div>
+            <div class="col-md-3"><img src="img/logo_zacatecas.png" class="img-responsive" alt="Gobierno del Estado de Zacatecas"></div>
             <div class="col-md-3">
             <h4><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Información</h4>
                 <ul>
@@ -172,7 +175,7 @@ Zacatecas, Zac.<br>
 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/proponle.js?v=1.1.2"></script>
+    <script src="js/proponle.js?v=1.1.3"></script>
     <script src="js/login.js.php" defer></script>
       <script>
 	// Load the SDK asynchronously
@@ -218,6 +221,8 @@ Zacatecas, Zac.<br>
                     }
             });
         }
+
+
 
     </script>
     <?php } ?>

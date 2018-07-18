@@ -29,6 +29,10 @@ $ExQueryInfo->free_result();
 unset($ExQueryInfo);
 $conexion->close();
 unset($conexion);
+$Current_url='https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+
+
+
 ?>
 <!Doctype HTML>
 <html lang="es">
@@ -36,9 +40,16 @@ unset($conexion);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Proponle a Zacatecas">
+    <meta name="description" content="<?php echo $Res[0] ?>" />
     <meta name="keywords" content="Zacatecas, Propuestas, Avanzamos, Avanzemos, Debate">
     <meta name="author" content="Gobierno del Estado de Zacatecas">
+    <meta property="og:url"                content="<?php echo $Current_url; ?>" />
+    <meta property="og:title"              content="<?php echo $Res[0] ?>" />
+    <meta property="og:description"        content="<?php echo $Res[3] ?>" />
+    <meta property="og:image"              content="https://avancemostodos.zacatecas.gob.mx/proponleZac/img/Proponle_A_Zacatecas.png" />
+
+
+
     <title>Proponle a Zacatecas</title>
     <!-- Hojas de Estilo -->
     <link rel="shortcut icon" type="image/x-icon" href="img/icon.ico" />
@@ -47,8 +58,18 @@ unset($conexion);
     <link rel="stylesheet" href="css/proponle.css?v1.1.1">
     <link rel="stylesheet" href="css/style.css">
      <link rel="stylesheet" href="css/font-awesome.css">
+
 </head>
 <body>
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.12&appId=2092021814159167&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="encabezado" width="100%">
    <?php if ($session_active == false) { ?>
     <span id='init_sesion'>Iniciar sesión:</span> <?php } ?><a id="login" class="btn btn-outline btn-primary btn-xs">
@@ -64,7 +85,7 @@ unset($conexion);
   <a href="index.php">Inicio</a>
   <a href="debates.php" class="activo"><span style="color:#f00;">Debates</span></a>
   <a href="propuestas.php">Propuestas</a>
-   <a href="http://avanzamostodos.zacagtecas.gob.mx" target="_blank">Presupuesto Participativo</a>
+   <a href="http://avanzamostodos.zacatecas.gob.mx" target="_blank">Presupuesto Participativo</a>
 
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
@@ -84,9 +105,9 @@ unset($conexion);
                 <span class="L-circle">L</span> <?php echo $Res[1]; ?> • <?php $fecha = date_create($Res[2]); echo date_format($fecha, 'd-m-Y'); ?>
                 <hr>
                 <h4>Introducci&oacute;n</h4>
-                <p><?php echo $Res[3]; ?></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $Res[3]; ?></p>
                 <h4>Contenido</h4>
-                <p><?php echo $Res[4]; ?></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $Res[4]; ?></p>
                 <hr>
 
 
@@ -94,7 +115,75 @@ unset($conexion);
 
             </div>
             <div class="col-md-4" style="border-left:solid 1px #dfe2e2;">
-nfo estadisitca debate
+                <div style="border-top:solid 2px #333;"><strong>Apoyos</strong> </div>
+                <div style="padding-top:5px; padding-bottom:15px;">
+                    <?php $conexion = $conn->conectar(3);
+                          $QueryVotosFavor = "Select count(*) FROM votosDebate WHERE idDebate = ".$_GET['debateId']." and voto = 1";
+                          $exQueryVotosFavor = $conexion->query($QueryVotosFavor) or die ($conexion-Error);
+                          $resultFavor = $exQueryVotosFavor->fetch_array();
+                          echo $resultFavor[0].'&nbsp;';
+                          $exQueryVotosFavor->free_result();
+                          unset($exQueryVotosFavor);
+                         unset($resultFavor);
+                             $conexion->close();
+
+                    ?>
+                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> |
+                        <?php $conexion = $conn->conectar(3);
+                          $QueryVotosContra = "Select count(*) FROM votosDebate WHERE idDebate = ".$_GET['debateId']." and voto = 2";
+                          $exQueryVotosContra = $conexion->query($QueryVotosContra) or die ($conexion-Error);
+                          $resultContra = $exQueryVotosContra->fetch_array();
+                          echo $resultContra[0].'&nbsp;';
+                          $exQueryVotosContra->free_result();
+                          unset($exQueryVotosContra);
+                         unset($resultContra);
+                             $conexion->close();
+
+                    ?>  <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></div>
+                <div style="border-top:solid 2px #333;"><strong>Compartir</strong> </div>
+                <div style="padding-top:5px; padding-bottom:5px; font-size: 1.8em;">
+                                        <?php
+                    $host= $_SERVER["HTTP_HOST"];
+$url= $_SERVER["REQUEST_URI"];
+$faceURL = "http://" . $host . $url;
+                ?>
+                    <div class="fb-share-button" data-href="<?php echo $faceURL?>" data-layout="button" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Favancemostodos.zacatecas.gob.mx%2FproponleZac%2Fdebates_info.php%3FdebateId%3D<?php echo $_GET['debateId    '] ?>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir el debate</a></div>
+
+                <br>
+              <div>
+                    <a href="https://twitter.com/share"
+                       class="twitter-share-button"
+                       data-url="https://avancemostodos.zacatecas.gob.mx/proponleZac/debates_info.php?debateId=<?php echo $_GET['debateId']?>"
+                       data-via="avancemosZac"
+                       data-text=" <?php echo $Res[0]; ?>  "
+                       >Tweet este debate</a>
+                    </div>
+                    <!-- Google Share button. -->
+<div class="g-plus"
+     data-action="share"
+     data-height="24"
+     data-href="https://avancemostodos.zacatecas.gob.mx/proponleZac/debates_info.php?debateId=<?php echo $_GET['debateId']; ?>">
+</div>
+          <br>
+
+
+<!-- Place this tag after the last share tag. -->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'es-419'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/platform.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+                     <!-- Linkdein -->
+                    <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: es_ES</script>
+<script type="IN/Share" data-url="https://avancemostodos.zacatecas.gob.mx/proponleZac/debates_info.php?debateId=<?php echo $_GET['debateId']; ?>"></script>
+
+                </div>
+
             </div>
         </div>
 <div class="row">
@@ -243,6 +332,24 @@ Zacatecas, Zac.<br>
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 	 </script>
+
+    <!-- //Twitter ---->
+    <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
+
+    <script>
+
+       twttr.ready(function (twttr) {
+        twttr.events.bind('click', function (event) { console.log('calledTwitter'); });
+    });
+
+
+
+    </script>
+
+
+
+
+
     <?php if($session_active == true){ ?>
     <script>
 
@@ -275,7 +382,7 @@ Zacatecas, Zac.<br>
                 data: { accion: 'comentar', debate: '<?php echo $_GET['debateId'];?>', usuario: '<?php echo $_SESSION['user_id']; ?>', comentario: $('#comentario_txt').val() }
                 }).done(function(msg) {
                  console.log(msg);
-                alert('Su comentario ha sido envido para revisi&oacute;n, gracias por participar');
+                alert('Su comentario ha sido envido para revisi\u00F3n, gracias por participar');
                 $('#myModal').modal('hide');
             });
 
@@ -291,7 +398,7 @@ Zacatecas, Zac.<br>
                 data: { accion: 'respuesta', debate: '<?php echo $_GET['debateId'];?>', comentario: $('#idComentarioActual').val(),  usuario: '<?php echo $_SESSION['user_id']; ?>', respuesta: $('#respuesta_txt').val() }
                 }).done(function(msg) {
                  console.log(msg);
-                alert('Su respuesta ha sido envido para revisi&oacute;n, gracias por participar');
+                alert('Su respuesta ha sido envido para revisi\u00F3n, gracias por participar');
                 $('#myModal').modal('hide');
             });
             return false;
@@ -305,6 +412,10 @@ Zacatecas, Zac.<br>
 
 
     </script>
+
+
+
+
     <?php } ?>
     </body>
 </html>

@@ -4,7 +4,7 @@
 
 class debates{
 
-    function listar($p,$a,$t,$f1,$f2,$s){
+    function listar($p,$a,$t,$f1,$f2,$s,$e){
         $c = new conexion();
         $conexion = $c->conectar(3);
         $ConsultaRegistros = "call registrosDebates()";
@@ -18,16 +18,20 @@ class debates{
         if($registros[0] == 0){
             $contenido = '<div class="twitter_btn"><i class="fa fa-info-circle" aria-hidden="true"></i> Aún no se tienen Debates registrados, te inviatamos a participar creando un debate.</div>';
         }else{
+
             $contenido ='';
             $conexion = $c->conectar(3);
             $fin = $p * 10;
             $inicio = $fin -10;
             $array_chars = array("%20","%21");
             $array_reference = array(" ","!");
+
             if($t != 'null'){$t = '"'.str_replace($array_chars,$array_reference,$t).'"'; }
-            $ConsultaDebates = 'call debatesList('.$inicio.','.$fin.','.$a.','.$t.','.$f1.','.$f2.')';
+
+            $ConsultaDebates = 'call debatesList('.$inicio.','.$fin.','.$a.','.$t.','.$f1.','.$f2.','.$e.')';
             $exQuery = $conexion->query($ConsultaDebates) or die ($conexion->error);
             $conexion->close();
+
 
             while($res = $exQuery->fetch_array()){
 
@@ -89,7 +93,7 @@ class debates{
         $ExQueryTags = $conn->query($queryTag) or die ($conn->error);
         $tags_info = '';
         while($res = $ExQueryTags->fetch_array()){
-            $tags_info .= "<a href='#' class='btn btn-primary2'>".$res[0]."</a>&nbsp;";
+            $tags_info .= "<a href='?etiqueta=".$res[0]."' style='color:#9a5cb4; font-size:1.2em;'>".$res[1]."</a>&nbsp;|&nbsp;";
         }
         $conn->close();
         unset($conn);
@@ -103,7 +107,7 @@ class debates{
         $ExQueryTags = $conn->query($queryTag) or die ($conn->error);
         $tags_info = '';
         while($res = $ExQueryTags->fetch_array()){
-            $tags_info .= "<a href='#' class='btn btn-primary2'>".$res[1]."</a>&nbsp;";
+            $tags_info .= "<a href='?etiqueta=".$res[2]."' style='color:#588db4; font-size:1.1em;'>".$res[1]."</a>&nbsp;|";
         }
         $conn->close();
         unset($conn);

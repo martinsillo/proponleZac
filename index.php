@@ -1,4 +1,12 @@
 <?php
+/*
+if($_SERVER["HTTPS"] != "on")
+{
+    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+    exit();
+}
+
+*/
 include('php/seguridad.php');
 if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     if($_SESSION['active'] == true AND
@@ -18,7 +26,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Proponle a Zacatecas">
+    <meta name="description" content="Proponle a Zacatecas, espacio de debates y propuestas ciudadanas">
     <meta name="keywords" content="Zacatecas, Propuestas, Avanzamos, Avanzemos, Debate">
     <meta name="author" content="Gobierno del Estado de Zacatecas">
     <title>Proponle a Zacatecas</title>
@@ -26,11 +34,24 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
     <link rel="shortcut icon" type="image/x-icon" href="img/icon.ico" />
     <link rel="stylesheet" href="css/bootstrap.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
-    <link rel="stylesheet" href="css/proponle.css?v1.1.2">
+    <link rel="stylesheet" href="css/proponle.css?v1.1.4">
     <link rel="stylesheet" href="css/style.css">
      <link rel="stylesheet" href="css/font-awesome.css">
 </head>
 <body>
+<!-- Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121850862-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121850862-1');
+</script>
+
+
+<!-- Analytics end -->
 <div class="encabezado" width="100%">
    <?php if ($session_active == false) { ?>
     <span id='init_sesion'>Iniciar sesión:</span> <?php } ?><a id="login" class="btn btn-outline btn-primary btn-xs">
@@ -39,14 +60,14 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
 <div class="menu">
 <div class="row" style="padding:1px 1px 1px 1px">
   <div class="col-sm-2">
-    <img src="img/Proponle_A_Zacatecas.png" width="150">
+    <img src="img/Proponle_A_Zacatecas.png" width="150" alt="Proponle a Zacatecas">
    </div>
 <div class="col-sm-10" style="padding-top:20px;">
   <div class="topnav" id="myTopnav">
   <a href="#" class="activo"><span style="color:#f00;">Inicio</span></a>
   <a href="debates.php">Debates</a>
   <a href="propuestas.php">Propuestas</a>
-   <a href="http://avanzamostodos.zacagtecas.gob.mx" target="_blank">Presupuesto Participativo</a>
+   <a href="http://avanzamostodos.zacatecas.gob.mx" target="_blank">Presupuesto Participativo</a>
 
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
@@ -75,12 +96,12 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
    <div class="pie_pag">
       <div class="container">
         <div class="row" style="padding: 9px 1px 5px 1px;">
-            <div class="col-md-3"><img src="img/logo_zacatecas.png" class="img-responsive">
+            <div class="col-md-3"><a href="http://www.zacatecas.gob.mx" target="_blank"><img src="img/logo_zacatecas.png" class="img-responsive" alt="Gobierno del Estado de Zacatecas"></a>
 
 
             <hr>
                 <div align="center">
-                <a href="https://avancemostodos.zacatecas.gob.mx"> <img src="img/avancemos_xs.png"></a>
+                <a href="https://avancemostodos.zacatecas.gob.mx" target="_blank"> <img src="img/avancemos_xs.png" alt="Avancemos todos en Zacatecas"></a>
                     </div>
 
 
