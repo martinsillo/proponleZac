@@ -12,6 +12,7 @@ function myFunction() {
 }
 function guardarDebate() {
     'use strict';
+    
     $.ajax({
         method: "POST",
         url: "php/debates.php",
@@ -23,6 +24,7 @@ function guardarDebate() {
             etiquetas: $('#etiquetas_debate').val()
         }
     }).done(function (msg) {
+    
         alert('Su propuesta de debate ha sido enviada para su validacion, muchas gracias.');
         $('#myModal').modal('hide');
     });
@@ -41,7 +43,9 @@ function guardarPropuesta() {
             texto: $('#cuerpo_propuesta').val(),
         }
     }).done(function (msg) {
-        alert('Su propuesta ha sido enviada para su validacion, muchas gracias.');
+        console.log(msg);
+        if(msg == "successful"){ alert('Su propuesta ha sido enviada para su validacion, muchas gracias.');}
+        else { alert('error al guardar su propuesta'); }
         $('#myModal').modal('hide');
     });
     return false;

@@ -1,4 +1,7 @@
 -- user privileges
+CREATE USER IF NOT EXISTS 'proponleZacAdm'@'localhost' IDENTIFIED BY '>GD2R3,(<xj8m:<a';
+CREATE USER IF NOT EXISTS 'proponleZacUsr'@'localhost' IDENTIFIED BY 'uxU2j*6gXVTT;_#7';
+CREATE USER IF NOT EXISTS 'proponleZacConsulta'@'localhost' IDENTIFIED BY '!<x8KS@CKKbx=gWF';
 GRANT SELECT ON proponleZac.*  TO 'proponleZacConsulta'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.debatesList TO 'proponleZacConsulta'@'localhost';
 GRANT SELECT,INSERT,UPDATE,DELETE ON proponleZac.* TO 'proponleZacUsr'@'localhost';
@@ -17,4 +20,5 @@ GRANT EXECUTE ON PROCEDURE proponleZac.propuestasList TO 'proponleZacConsulta'@'
 GRANT EXECUTE ON PROCEDURE proponleZac.registrosPropuestas TO 'proponleZacConsulta'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.categoriasVisitadas TO 'proponleZacConsulta'@'localhost';
 GRANT EXECUTE ON PROCEDURE proponleZac.votoPropuesta TO 'proponleZacUsr'@'localhost';
+GRANT execute ON procedure proponleZac.insertarPropuesta TO 'proponleZacUsr'@'localhost';
 FLUSH PRIVILEGES;

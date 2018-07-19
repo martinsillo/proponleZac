@@ -217,7 +217,6 @@ BEGIN
 			SELECT
 			p.idPropuesta,
 			p.titulo,
-			(select count(*) FROM comentariosPropuestas WHERE idPropuesta = p.idPropuesta) as comentarios,
 			u.nombre,
 			p.fecha,
 			p.introduccion,
@@ -232,7 +231,6 @@ BEGIN
         	SELECT
 			p.idPropuesta,
 			p.titulo,
-			(select count(*) FROM comentariosPropuestas WHERE idPropuesta = p.idPropuesta) as comentarios,
 			u.nombre,
 			p.fecha,
 			p.introduccion,
@@ -249,7 +247,6 @@ BEGIN
 				SELECT
 			p.idPropuesta,
 			p.titulo,
-			(select count(*) FROM comentariosPropuestas WHERE idPropuesta = p.idPropuesta) as comentarios,
 			u.nombre,
 			p.fecha,
 			p.introduccion,
@@ -268,7 +265,6 @@ BEGIN
 	SELECT
 			p.idPropuesta,
 			p.titulo,
-			(select count(*) FROM comentariosPropuestas WHERE idPropuesta = p.idPropuesta) as comentarios,
 			u.nombre,
 			p.fecha,
 			p.introduccion,
@@ -317,13 +313,11 @@ begin
  delimiter ;
 
 
-
- drop procedure insertarPropuesta;
 delimiter $$
-create procedure insertarPropuesta (in t varchar(254),in u bigint, in i text, in c text )
+create procedure insertarPropuesta (in t varchar(254),in u bigint, in c text, in i text )
 begin
 	set @fechaHora =  concat(curdate()," ",curtime());
     set @codProp = concat(curdate(),FLOOR(RAND()*(999-5+1)+5),curtime());
-    INSERT INTO propuestas (titulo,id_usuario,fecha,codigo_propuesta,introduccion,contenido,apoyos_necesarios,apoyos_recibidos) values (t,u,@fechaHora,@codProp,i,c, 1, 0);
+    INSERT INTO propuestas (titulo,id_usuario,fecha,codigo_propuesta,introduccion,contenido,apoyos_necesarios,apoyos_recibidos,validado) values (t,u,@fechaHora,@codProp,i,c, 1, 0, 0);
 end $$
 delimiter ;

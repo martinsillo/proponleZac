@@ -117,9 +117,7 @@ if(isset($_SESSION['active']) AND isset($_SESSION['active_key'])) {
                 <br>
                 <button type="button" class="btn btn-info btn-outline">Ayuda sobre las propuestas</button>
                 <hr>
-                <strong>Tendencias</strong><br>
-                <?php echo $propuestas->categoriasMasVisitadas(); ?>
-                <hr>
+                
             </div>
         </div>
 
@@ -175,7 +173,7 @@ Zacatecas, Zac.<br>
 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/proponle.js?v=1.1.3"></script>
+    <script src="js/proponle.js?v=1.1.6"></script>
     <script src="js/login.js.php" defer></script>
       <script>
 	// Load the SDK asynchronously

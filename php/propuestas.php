@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors',1);
 
 
 class propuestas{
@@ -31,11 +32,11 @@ class propuestas{
 
             while($res = $exQuery->fetch_array()){
 
-            $fecha =  substr($res[4],0,10);
-            $etiquetas = $this->etiquetar($res[0]);
-            $nombre = explode(" ",$res[3]);
-            $apoyos_necesarios = number_format ( $res[6], 0 , "." ,  "," );
-            $apoyos_recibidos =  number_format ( $res[7], 0 , "." ,  "," );
+            $fecha =  substr($res[3],0,10);
+           // $etiquetas = $this->etiquetar($res[0]);
+            $nombre = explode(" ",$res[2]);
+            $apoyos_necesarios = number_format ( $res[5], 0 , "." ,  "," );
+            $apoyos_recibidos =  number_format ( $res[6], 0 , "." ,  "," );
             $porcentaje_total = ($apoyos_recibidos/$apoyos_necesarios) * 100;
             $avance_barra = round($porcentaje_total);
             $porcentaje_total = number_format($porcentaje_total,2,".", ",");
@@ -64,12 +65,15 @@ class propuestas{
             $contenido .= '<div class="box_debate">
                             <div class="row">
                             <div class="col-md-9">
-                            <h3 style="color:#333;"> <a href="propuestas_info.php?propuestaId='.$res[0].'"><strong>'.$res[1].'</strong></a> </h3>
+                            <h3 style="color:#333;"> <a href="propuestas_info.php?propuestaId='.$res[0].'">
+                            <strong>'.$res[1].'</strong></a> </h3>
                             <p>
-                            <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; '.$fecha.' &nbsp;•&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;'. $nombre[0]." ".$nombre[1].'<p>'. $res[5].' </p>'.$etiquetas.'</div><div class="col-md-3" style="border-left: solid 1px #dfe2e2;">
+                            <i class="fa fa-calendar" aria-hidden="true">
+                            </i>&nbsp; '.$fecha.' &nbsp;•&nbsp;&nbsp;<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;'. $nombre[0]." ".$nombre[1].'<p>'. $res[4].' </p></div><div class="col-md-3" style="border-left: solid 1px #dfe2e2;">
                               <div class="m">
                     <div class="progress m-t-xs full progress-striped active">
-                        <div style="width: '.$avance_barra.'%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="'.$avance_barra.'" role="progressbar" class=" progress-bar '.$color_barra.'">
+                        <div style="width: '.$avance_barra.'%" aria-valuemax="100" aria-valuemin="0"
+                         aria-valuenow="'.$avance_barra.'" role="progressbar" class=" progress-bar '.$color_barra.'">
                             '.$porcentaje_total.'%
                         </div>
                     </div>
@@ -78,7 +82,7 @@ class propuestas{
                 $apoyos_necesarios.' apoyos necesarios<br><br>
                         <div style="text-align:center">
                            '.$btn_votar.'</div>
-                            </div></div></div>';
+                            </div></div></div><br>';
 
                            ;
             }
@@ -95,24 +99,19 @@ class propuestas{
         $titulo = str_replace("'","\'",$_POST['titulo']);
         $texto = str_replace("'","\'",$_POST['texto']);
         $intro = str_replace("'","\'",$_POST['introduccion']);
-        $Consulta = "CALL insertarPropuesta('".$titulo."',".$_SESSION['user_id'].",'".$fecha."','".$texto."','".$intro."')";
-        $ExConsulta = $conexion->query($Consulta) or die($conexion->error);
-        $res = $ExConsulta->fetch_array();
-        $conexion->close();
-        unset($conexion);
-        $etiquetas = explode(",",$_POST['etiquetas']);
-        foreach($etiquetas as $val){
-            $conexion = $c->conectar(2);
-            $query = "CALL insertarEtiquetas('".$val."',".$res[0].")";
-            $conexion->query($query) or die ($conexion->error);
+        $Consulta = "CALL insertarPropuesta('$titulo',".$_SESSION['user_id'].",'$texto','$intro')";
+        if($conexion->query($Consulta)){
             $conexion->close();
-        unset($conexion);
-
-}
-
-     return "successful";
-
-
+            unset($conexion);
+            return "successful";
+        }else{
+            $conexion->close();
+            unset($conexion);
+            return "error";
+        }
+      
+       
+       
     }
     function contarPropuestas(){
         $c = new conexion();
